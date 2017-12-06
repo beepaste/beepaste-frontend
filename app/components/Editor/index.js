@@ -156,7 +156,7 @@ function Editor(props) { // eslint-disable-line react/prefer-stateless-function
       name="Editor"
       minLines={20}
       maxLines={25}
-      wrapEnabled
+      readOnly={props.readonly === true}
     />
   );
 }
@@ -165,6 +165,7 @@ Editor.propTypes = {
   onChangeContent: PropTypes.func,
   mode: PropTypes.string,
   defaultValue: PropTypes.string,
+  readonly: PropTypes.bool,
 };
 
 export default Editor;

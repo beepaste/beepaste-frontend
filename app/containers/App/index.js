@@ -31,7 +31,6 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectFooter, makeSelectError, makeSelectLoading } from 'containers/App/selectors';
 
-import MyHome from 'containers/MyHome';
 
 import UiEvents from 'components/UiEvents';
 
@@ -48,7 +47,7 @@ export default function App(props) {
       <UiEvents />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        {/* <Route path="/view/:id" component={ViewPastePage}/>*/}
+        <Route path="/view/:id" component={ViewPastePage} />
         {/* <Route exact path="/api/doc" component={DocumentPage}/>*/}
         <Route path="/about" component={AboutusPage} />
         <Route component={NotFoundPage} />

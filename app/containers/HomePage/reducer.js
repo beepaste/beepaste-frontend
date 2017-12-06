@@ -7,19 +7,22 @@ import {
   CHANGE_PASTE_EXPIRE,
   CHANGE_RAW_CODE,
   CHANGE_ENCRYPTION,
+  CHANGE_ENCRYPTED_PASTE_RAW,
+  POST_NEW_PASTE_SUCCESS,
 } from 'containers/App/constants';
 
 const initialState = fromJS({
   form: {
-    apiKey: '',
-    author: '',
-    pasteTitle: '',
+    author: 'Anonymous',
+    pasteTitle: 'Untitled',
     pasteLanguage: 'text',
-    pasteExpire: 0,
+    pasteExpire: '0',
     pasteRaw: '',
+    encryptedPasteRaw: '',
     pasteEncryption: 'no',
   },
 });
+
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
@@ -37,6 +40,8 @@ function homeReducer(state = initialState, action) {
       return state.setIn(['form', 'pasteExpire'], action.name);
     case CHANGE_RAW_CODE:
       return state.setIn(['form', 'pasteRaw'], action.name);
+    case CHANGE_ENCRYPTED_PASTE_RAW:
+      return state.setIn(['form', 'encryptedPasteRaw'], action.name);
     case CHANGE_ENCRYPTION:
       return state.setIn(['form', 'pasteEncryption'], action.name);
     default:

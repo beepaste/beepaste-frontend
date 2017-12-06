@@ -1,45 +1,51 @@
 /**
  * Gets the repositories of the user from Github
  */
-
-import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { POST_NEW_PASTE, REQUEST_PASTE_NEW } from 'containers/App/constants';
-import { postNewPasteResponse, postNewPasteError, apikeyResponse } from './actions';
-import { makeSelectForm } from './selector';
 import request from 'utils/request';
 import { push } from 'react-router-redux';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { POST_NEW_PASTE } from 'containers/App/constants';
+import { resetForm, postNewPasteResponse, postNewPasteError } from './actions';
+import { makeSelectForm } from './selector';
+import { makeSelectApiKey } from '../App/selectors';
 
 
-export function* pasteNew(response) {
+export function* pasteNew() {
   const form = yield select(makeSelectForm());
-  const { apiKey, ...other } = form;
-  console.log(form);
+  const other = form;
+  const apiKey = yield select(makeSelectApiKey());
+  const dataToSend = {
+    author: other.author,
+    encryption: other.pasteEncryption,
+    syntax: other.pasteLanguage,
+    title: other.pasteTitle,
+    raw: other.pasteEncryption === 'no' ? other.pasteRaw : other.encryptedPasteRaw,
+  };
+  const pasteExpire = parseInt(other.pasteExpire);
+  if (pasteExpire !== 0) {
+    dataToSend.toExpire = true;
+  } else {
+    dataToSend.toExpire = false;
+  }
+  let timeObject = new Date();
+  timeObject = new Date(timeObject.getTime() + 1000 * pasteExpire);
+  dataToSend.expiryDate = timeObject;
+
   const reqUrl = 'https://beta.beepaste.io/api/v1/paste';
 
   try {
-    const repos = yield call(request, reqUrl, { method: 'post', data: JSON.stringify(other), headers: { 'X-TOKEN': apiKey } });
-    yield put(postNewPasteResponse(repos, username));
-  } catch (err) {
-    yield put(repoLoadingError(err));
-  }
-}
-
-export function* getApikey() {
-  const reqUrl = 'https://beta.beepaste.io/api/v1/auth';
-  try {
-    const response = yield call(request, reqUrl, { method: 'post', data: {} });
-    if (response.status === 'success') {
-      yield put(apikeyResponse(REQUEST_PASTE_NEW, response));
-    } else {
-      yield put(postNewPasteError('some error')); // todo set correct err message
-    }
+    const result = yield call(request, reqUrl, { method: 'post', body: JSON.stringify(dataToSend), headers: { 'X-TOKEN': apiKey, 'content-type': 'application/json' } });
+    yield put(resetForm());
+    yield put(postNewPasteResponse(result.paste));
+    yield put(push(`view/${result.paste.uri}`));
   } catch (err) {
     yield put(postNewPasteError(err));
   }
 }
 
+
 export default function* pasteNewApiCall() {
-  yield takeLatest(POST_NEW_PASTE, getApikey);
-  yield takeLatest(REQUEST_PASTE_NEW, pasteNew);
+  // yield takeLatest(POST_NEW_PASTE, getApikey);
+  yield takeLatest(POST_NEW_PASTE, pasteNew);
 }
 

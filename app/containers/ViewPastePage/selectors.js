@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the viewPastePage state domain
  */
-const selectViewPastePageDomain = (state) => state.get('viewPastePage');
+// const selectAppState = (state) => state.get('app');
 
 /**
  * Other specific selectors
@@ -13,13 +13,3 @@ const selectViewPastePageDomain = (state) => state.get('viewPastePage');
 /**
  * Default selector used by ViewPastePage
  */
-
-const makeSelectViewPastePage = () => createSelector(
-  selectViewPastePageDomain,
-  (substate) => substate.toJS()
-);
-
-export default makeSelectViewPastePage;
-export {
-  selectViewPastePageDomain,
-};

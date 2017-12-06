@@ -2,36 +2,35 @@
  * Gets the repositories of the user from Github
  */
 
-import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { LOAD_REPOS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import { call, put, select, takeLatest, take } from 'redux-saga/effects';
+import { GET_API_KEY } from 'containers/App/constants';
+import { errorOccured } from 'containers/App/actions';
 
 import request from 'utils/request';
+import { apikeyResponse, nextAfterGetApiKey } from '../HomePage/actions';
 
-/**
- * Github repos request/response handler
- */
-export function* getInitialData() {
-  // Select username from store
-  const username = 'pymossy';
-  const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
 
+export function* getApikey(action) {
+  const { type ,next , ...other } = action;
+  const reqUrl = 'https://beta.beepaste.io/api/v1/auth';
   try {
-    // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(reposLoaded(repos, username));
+    const response = yield call(request, reqUrl, { method: 'post', data: {} });
+    if (response.status === 'success') {
+      yield put(apikeyResponse(response));
+      yield put(nextAfterGetApiKey(next, other));
+    } else {
+      yield put(errorOccured('some error')); // todo set correct err message
+    }
   } catch (err) {
-    yield put(repoLoadingError(err));
+    yield put(errorOccured(err));
   }
 }
+
 
 /**
  * Root saga manages watcher lifecycle
  */
+
 export default function* initialData() {
-  // Watches for LOAD_REPOS actions and calls getRepos when one comes in.
-  // By using `takeLatest` only the result of the latest API call is applied.
-  // It returns task descriptor (just like fork) so we can continue execution
-  // It will be cancelled automatically on component unmount
-  yield takeLatest(LOAD_REPOS, getInitialData);
+  yield takeLatest(GET_API_KEY, getApikey);
 }

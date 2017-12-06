@@ -9,11 +9,6 @@ const makeSelectForm = () => createSelector(
   (globalState) => globalState.get('form').toJS()
 );
 
-const makeSelectApikey = () => createSelector(
-  selectGlobal,
-  (globalState) => globalState.getIn(['form', 'apiKey'])
-);
-
 const makeSelectAuthor = () => createSelector(
   selectGlobal,
   (globalState) => globalState.getIn(['form', 'author'])
@@ -53,7 +48,6 @@ const makeSelectLocation = () => createSelector(
 export {
   selectGlobal,
   makeSelectForm,
-  makeSelectApikey,
   makeSelectAuthor,
   makeSelectPastTitle,
   makeSelectPasteLanguage,

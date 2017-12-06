@@ -9,24 +9,10 @@
  * the linting exception.
  */
 
-import React from 'react';
-import Wrapper from './Wrapper';
-import Select from './Select';
 import Modal from 'components/Modal';
 import Editor from 'components/Editor';
+import Wrapper from 'components/Wrapper';
 import PropTypes from 'prop-types';
-import saga from './saga';
-import reducer from './reducer';
-import {
-  makeSelectForm,
-  makeSelectApikey,
-  makeSelectAuthor,
-  makeSelectPastTitle,
-  makeSelectPasteLanguage,
-  makeSelectPasteExpire,
-  makeSelectPasteRaw,
-  makeSelectPasteEncryption,
-} from './selector';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -35,6 +21,19 @@ import injectSaga from 'utils/injectSaga';
 import { postNewPaste } from './actions';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
+import React from 'react';
+import Select from './Select';
+import saga from './saga';
+import reducer from './reducer';
+import {
+  makeSelectForm,
+  makeSelectAuthor,
+  makeSelectPastTitle,
+  makeSelectPasteLanguage,
+  makeSelectPasteExpire,
+  makeSelectPasteRaw,
+  makeSelectPasteEncryption,
+} from './selector';
 import {
   REQUEST_PASTE_NEW,
   CHANGE_AUTHOR,
@@ -43,7 +42,10 @@ import {
   CHANGE_PASTE_EXPIRE,
   CHANGE_RAW_CODE,
   CHANGE_ENCRYPTION,
+  CHANGE_ENCRYPTED_PASTE_RAW,
 } from 'containers/App/constants';
+import CryptionService from 'utils/cryptionService';
+import {POST_NEW_PASTE} from "../App/constants";
 
 
 const PGP_MODAL = {
@@ -74,14 +76,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   modalConfirm(ev, value) {
-    console.log(ev, value);
     if (this.props.pasteencryption === 'passwd') {
-      console.log(ev, value);
-      // todo cryption raw text
+      this.props.onChangeEncryptedRaw(CryptionService.EncryptRawText(this.props.pasteraw, value));
     } else {
-      console.log(ev, value);
-      // todo cryption raw text
+      CryptionService.EncryptWithOpenpgp(this.props.pasteraw, value).then((cryptedValue) => {
+        this.props.onChangeEncryptedRaw(cryptedValue.data);
+      }).catch(() => {
+        console.error('oh');
+      });
     }
+    this.props.onSubmitForm(ev);
   }
 
   checkForm(ev) {
@@ -238,19 +242,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     const expireOptions = expires.map((exp) => <option key={exp.value} value={exp.value}>{exp.text}</option>);
     return (
       <main>
-        <Wrapper>
+        <Wrapper title="Create a New Paste">
           <form onSubmit={this.checkForm} id="pasteForm">
             <div className="form-container">
               <div className="row">
                 <div className="input-field col s12 m3">
                   <i className="fa fa-user prefix"></i>
-                  <input id="pasteAuthor" type="text" name="pasteAuthor" onChange={this.props.onChangeAnyThing} />
+                  <input id="pasteAuthor" type="text" name="pasteAuthor" value={this.props.author} onChange={this.props.onChangeAnyThing} />
                   <label htmlFor="pasteAuthor">Author</label>
                 </div>
                 <div className="input-field col s12 m3">
                   <i className="fa fa-flag prefix"></i>
                   <input
-                    id="pasteTitle" type="text" className="" name="pasteTitle"
+                    id="pasteTitle" type="text" className="" name="pasteTitle" value={this.props.pastetitle}
                     onChange={this.props.onChangeAnyThing}
                   />
                   <label htmlFor="pasteTitle">Title</label>
@@ -283,17 +287,20 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
                     Encryption</label>
                   <div id="encrypt">
                     <input
-                      id="noEncrypt" className="with-gap" type="radio" name="pasteEncryption" value="no" checked
+                      id="noEncrypt" className="with-gap" type="radio" name="pasteEncryption" value="no"
+                      checked={this.props.pasteencryption === 'no'}
                       onChange={this.props.onChangeAnyThing}
                     />
                     <label htmlFor="noEncrypt">No Encryption</label>
                     <input
                       id="passwdEncrypt" className="with-gap" type="radio" name="pasteEncryption" value="passwd"
+                      checked={this.props.pasteencryption === 'passwd'}
                       onChange={this.props.onChangeAnyThing}
                     />
                     <label htmlFor="passwdEncrypt">Encrypt with Password</label>
                     <input
                       id="pgpEncrypt" className="with-gap" type="radio" name="pasteEncryption" value="pgp"
+                      checked={this.props.pasteencryption === 'pgp'}
                       onChange={this.props.onChangeAnyThing}
                     />
                     <label htmlFor="pgpEncrypt">Encrypt with PGP Keys</label>
@@ -321,14 +328,14 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
 HomePage.propTypes = {
   onChangeRaw: PropTypes.func,
+  onChangeEncryptedRaw: PropTypes.func,
   onChangeAnyThing: PropTypes.func,
   onSubmitForm: PropTypes.func,
   form: PropTypes.object,
-  apikey: PropTypes.string,
   author: PropTypes.string,
   pastetitle: PropTypes.string,
   pastelanguage: PropTypes.string,
-  pasteexpire: PropTypes.number,
+  pasteexpire: PropTypes.string,
   pasteraw: PropTypes.string,
   pasteencryption: PropTypes.string,
 };
@@ -336,7 +343,6 @@ HomePage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   // form: makeSelectForm(),
   form: makeSelectForm(),
-  apikey: makeSelectApikey(),
   author: makeSelectAuthor(),
   pastetitle: makeSelectPastTitle(),
   pastelanguage: makeSelectPasteLanguage(),
@@ -350,6 +356,9 @@ export function mapDispatchToProps(dispatch) {
     onChangeRaw: (evt) => {
       dispatch({ type: CHANGE_RAW_CODE, name: evt });
     },
+    onChangeEncryptedRaw: (text) => {
+      dispatch({ type: CHANGE_ENCRYPTED_PASTE_RAW, name: text });
+    },
     onChangeAnyThing: (evt) => {
       const mapingFuncs = {
         pasteAuthor: CHANGE_AUTHOR,
@@ -362,7 +371,7 @@ export function mapDispatchToProps(dispatch) {
     },
     onSubmitForm: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(postNewPaste());
+      dispatch(postNewPaste(POST_NEW_PASTE));
       // dispatch(push('/about'));
     },
   };

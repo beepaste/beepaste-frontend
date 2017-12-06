@@ -4,7 +4,7 @@ const Wrapper = (props) => (<div className="container">
     <div className="col s12 m12">
       <div className="card">
         <div className="card-content" style={{ minHeight: '100%' }}>
-          <div className="title-container"><span className="card-title">Create a New Paste</span></div>
+          <div className="title-container"><span className="card-title">{props.title}</span></div>
           {props.children}
         </div>
       </div>
