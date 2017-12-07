@@ -41,7 +41,7 @@ const makeSelectPasteRaw = () => createSelector(
 );
 const makeSelectPasteEncyptedRaw = () => createSelector(
   selectGlobal,
-  (state) => state.getIn(['paste', 'encryptionRaw'])
+  (state) => state.getIn(['paste', 'encryptedRaw'])
 );
 const makeSelectPasteShortUrl = () => createSelector(
   selectGlobal,

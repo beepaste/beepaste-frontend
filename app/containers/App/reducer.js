@@ -1,9 +1,11 @@
-import {fromJS} from 'immutable';
-
+import { fromJS } from 'immutable';
 import {
   POST_NEW_PASTE_SUCCESS,
-} from 'containers/App/constants';
-import {API_KEY_SUCCESS, GET_PASTE_SUCCESS} from "./constants";
+  API_KEY_SUCCESS,
+  CHANGE_DECRYPTED_RAW,
+  GET_PASTE_SUCCESS,
+} from './constants';
+
 // The initial state of the App
 const initialState = fromJS({
   error: false,
@@ -28,6 +30,7 @@ function setPaste(state, response) {
   response.encryptedRaw = '';
   if (response.encryption !== 'no') {
     response.encryptedRaw = response.raw;
+    response.raw = '';
   }
   return state.setIn(['paste', 'title'], response.title)
     .setIn(['paste', 'encryption'], response.encryption)
@@ -48,6 +51,8 @@ function appReducer(state = initialState, action) {
     case POST_NEW_PASTE_SUCCESS:
     case GET_PASTE_SUCCESS:
       return setPaste(state, action.response);
+    case CHANGE_DECRYPTED_RAW:
+      return state.setIn(['paste', 'raw'], action.raw);
     default:
       return state;
   }

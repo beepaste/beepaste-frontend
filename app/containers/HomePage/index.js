@@ -9,6 +9,24 @@
  * the linting exception.
  */
 
+import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
+import React from 'react';
+import {
+  PGP_MODAL,
+  PASS_MODAL,
+  CHANGE_AUTHOR,
+  CHANGE_TITLE,
+  CHANGE_PASTE_LANGUAGE,
+  CHANGE_PASTE_EXPIRE,
+  CHANGE_RAW_CODE,
+  CHANGE_ENCRYPTION,
+  CHANGE_ENCRYPTED_PASTE_RAW,
+  POST_NEW_PASTE,
+  languages,
+  expires,
+} from 'containers/App/constants';
+import CryptionService from 'utils/cryptionService';
 import Modal from 'components/Modal';
 import Editor from 'components/Editor';
 import Wrapper from 'components/Wrapper';
@@ -19,9 +37,6 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { postNewPaste } from './actions';
-import { Link } from 'react-router-dom';
-import { push } from 'react-router-redux';
-import React from 'react';
 import Select from './Select';
 import saga from './saga';
 import reducer from './reducer';
@@ -34,40 +49,14 @@ import {
   makeSelectPasteRaw,
   makeSelectPasteEncryption,
 } from './selector';
-import {
-  REQUEST_PASTE_NEW,
-  CHANGE_AUTHOR,
-  CHANGE_TITLE,
-  CHANGE_PASTE_LANGUAGE,
-  CHANGE_PASTE_EXPIRE,
-  CHANGE_RAW_CODE,
-  CHANGE_ENCRYPTION,
-  CHANGE_ENCRYPTED_PASTE_RAW,
-} from 'containers/App/constants';
-import CryptionService from 'utils/cryptionService';
-import {POST_NEW_PASTE} from "../App/constants";
 
-
-const PGP_MODAL = {
-  title: 'Encrypt your paste with PGP key',
-  alert: 'pgp-key is required to encrypt your paste!',
-  label: 'Your PGP public-key:',
-  id: 'pgpModal',
-};
-
-
-const PASS_MODAL = {
-  title: 'Encrypt your paste with Password-OTP',
-  alert: 'Your Password:',
-  label: 'password is required to encrypt your paste!',
-  id: 'passwordModal',
-};
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
     this.checkForm = this.checkForm.bind(this);
     this.modalConfirm = this.modalConfirm.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
   openModal(id) {
@@ -82,7 +71,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       CryptionService.EncryptWithOpenpgp(this.props.pasteraw, value).then((cryptedValue) => {
         this.props.onChangeEncryptedRaw(cryptedValue.data);
       }).catch(() => {
-        console.error('oh');
+        console.error('oh'); // todo error handling
       });
     }
     this.props.onSubmitForm(ev);
@@ -103,141 +92,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   render() {
     const error = 'oh some error!';
-    const languages = [{ value: 'abap', text: 'Abap' },
-      { value: 'abc', text: 'Abc' },
-      { value: 'actionscript', text: 'Actionscript' },
-      { value: 'ada', text: 'Ada' },
-      { value: 'apache_conf', text: 'Apache_conf' },
-      { value: 'applescript', text: 'Applescript' },
-      { value: 'asciidoc', text: 'Asciidoc' },
-      { value: 'assembly_x86', text: 'Assembly_x86' },
-      { value: 'autohotkey', text: 'Autohotkey' },
-      { value: 'batchfile', text: 'Batchfile' },
-      { value: 'c9search', text: 'C9search' },
-      { value: 'c_cpp', text: 'C++' },
-      { value: 'cirru', text: 'Cirru' },
-      { value: 'clojure', text: 'Clojure' },
-      { value: 'cobol', text: 'Cobol' },
-      { value: 'coffee', text: 'Coffee' },
-      { value: 'coldfusion', text: 'Coldfusion' },
-      { value: 'csharp', text: 'Csharp' },
-      { value: 'css', text: 'Css' },
-      { value: 'curly', text: 'Curly' },
-      { value: 'd', text: 'D' },
-      { value: 'dart', text: 'Dart' },
-      { value: 'diff', text: 'Diff' },
-      { value: 'django', text: 'Django' },
-      { value: 'dockerfile', text: 'Dockerfile' },
-      { value: 'dot', text: 'Dot' },
-      { value: 'eiffel', text: 'Eiffel' },
-      { value: 'ejs', text: 'Ejs' },
-      { value: 'elixir', text: 'Elixir' },
-      { value: 'elm', text: 'Elm' },
-      { value: 'erlang', text: 'Erlang' },
-      { value: 'forth', text: 'Forth' },
-      { value: 'ftl', text: 'Ftl' },
-      { value: 'gcode', text: 'Gcode' },
-      { value: 'gherkin', text: 'Gherkin' },
-      { value: 'gitignore', text: 'Gitignore' },
-      { value: 'glsl', text: 'Glsl' },
-      { value: 'golang', text: 'Golang' },
-      { value: 'groovy', text: 'Groovy' },
-      { value: 'haml', text: 'Haml' },
-      { value: 'handlebars', text: 'Handlebars' },
-      { value: 'haskell', text: 'Haskell' },
-      { value: 'haxe', text: 'Haxe' },
-      { value: 'html', text: 'Html' },
-      { value: 'html_elixir', text: 'Html_elixir' },
-      { value: 'html_ruby', text: 'Html_ruby' },
-      { value: 'ini', text: 'Ini' },
-      { value: 'io', text: 'Io' },
-      { value: 'jack', text: 'Jack' },
-      { value: 'jade', text: 'Jade' },
-      { value: 'java', text: 'Java' },
-      { value: 'javascript', text: 'Javascript' },
-      { value: 'json', text: 'Json' },
-      { value: 'jsoniq', text: 'Jsoniq' },
-      { value: 'jsp', text: 'Jsp' },
-      { value: 'jsx', text: 'Jsx' },
-      { value: 'julia', text: 'Julia' },
-      { value: 'latex', text: 'Latex' },
-      { value: 'lean', text: 'Lean' },
-      { value: 'less', text: 'Less' },
-      { value: 'liquid', text: 'Liquid' },
-      { value: 'lisp', text: 'Lisp' },
-      { value: 'live_script', text: 'Live_script' },
-      { value: 'livescript', text: 'Livescript' },
-      { value: 'logiql', text: 'Logiql' },
-      { value: 'lsl', text: 'Lsl' },
-      { value: 'lua', text: 'Lua' },
-      { value: 'luapage', text: 'Luapage' },
-      { value: 'lucene', text: 'Lucene' },
-      { value: 'makefile', text: 'Makefile' },
-      { value: 'markdown', text: 'Markdown' },
-      { value: 'mask', text: 'Mask' },
-      { value: 'matlab', text: 'Matlab' },
-      { value: 'maze', text: 'Maze' },
-      { value: 'mel', text: 'Mel' },
-      { value: 'mips_assembler', text: 'Mips_assembler' },
-      { value: 'mipsassembler', text: 'Mipsassembler' },
-      { value: 'mushcode', text: 'Mushcode' },
-      { value: 'mysql', text: 'Mysql' },
-      { value: 'nix', text: 'Nix' },
-      { value: 'objectivec', text: 'Objectivec' },
-      { value: 'ocaml', text: 'Ocaml' },
-      { value: 'pascal', text: 'Pascal' },
-      { value: 'perl', text: 'Perl' },
-      { value: 'pgsql', text: 'Pgsql' },
-      { value: 'php', text: 'Php' },
-      { value: 'plain_text', text: 'Plain_text' },
-      { value: 'powershell', text: 'Powershell' },
-      { value: 'praat', text: 'Praat' },
-      { value: 'prolog', text: 'Prolog' },
-      { value: 'properties', text: 'Properties' },
-      { value: 'protobuf', text: 'Protobuf' },
-      { value: 'python', text: 'Python' },
-      { value: 'r', text: 'R' },
-      { value: 'rdoc', text: 'Rdoc' },
-      { value: 'rhtml', text: 'Rhtml' },
-      { value: 'ruby', text: 'Ruby' },
-      { value: 'rust', text: 'Rust' },
-      { value: 'sass', text: 'Sass' },
-      { value: 'scad', text: 'Scad' },
-      { value: 'scala', text: 'Scala' },
-      { value: 'scheme', text: 'Scheme' },
-      { value: 'scss', text: 'Scss' },
-      { value: 'sh', text: 'Sh' },
-      { value: 'sjs', text: 'Sjs' },
-      { value: 'smarty', text: 'Smarty' },
-      { value: 'snippets', text: 'Snippets' },
-      { value: 'soy_template', text: 'Soy_template' },
-      { value: 'space', text: 'Space' },
-      { value: 'sql', text: 'Sql' },
-      { value: 'sqlserver', text: 'Sqlserver' },
-      { value: 'stylus', text: 'Stylus' },
-      { value: 'svg', text: 'Svg' },
-      { value: 'swift', text: 'Swift' },
-      { value: 'swig', text: 'Swig' },
-      { value: 'tcl', text: 'Tcl' },
-      { value: 'tex', text: 'Tex' },
-      { value: 'text', text: 'Text' },
-      { value: 'textile', text: 'Textile' },
-      { value: 'toml', text: 'Toml' },
-      { value: 'twig', text: 'Twig' },
-      { value: 'typescript', text: 'Typescript' },
-      { value: 'vala', text: 'Vala' },
-      { value: 'vbscript', text: 'Vbscript' },
-      { value: 'velocity', text: 'Velocity' },
-      { value: 'verilog', text: 'Verilog' },
-      { value: 'vhdl', text: 'Vhdl' },
-      { value: 'xml', text: 'Xml' },
-      { value: 'xquery', text: 'Xquery' },
-      { value: 'yaml', text: 'Yaml' }];
-    const expires = [{ value: '0', text: 'Keep Forever' },
-      { value: '300', text: '5 Minutes' },
-      { value: '3600', text: '1 Hour' },
-      { value: '86400', text: '1 Day' },
-      { value: '604800', text: '1 Week' }];
+
     const languageOptions = languages.map((lang) => <option key={lang.value} value={lang.value}>{lang.text}</option>);
     const expireOptions = expires.map((exp) => <option key={exp.value} value={exp.value}>{exp.text}</option>);
     return (

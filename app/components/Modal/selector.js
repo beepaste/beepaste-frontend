@@ -2,11 +2,15 @@ import { createSelector } from 'reselect';
 
 const selectGlobal = (state) => state.get('modal');
 
-const makeSelectValue = () => createSelector(
+const makeSelectValue1 = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('value')
+  (globalState) => globalState.get('value1')
 );
-
+const makeSelectValue2 = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('value2')
+);
 export {
-  makeSelectValue,
+  makeSelectValue1,
+  makeSelectValue2,
 };

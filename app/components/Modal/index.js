@@ -8,10 +8,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectValue } from './selector';
+import { makeSelectValue1, makeSelectValue2 } from './selector';
 import reducer from './reducer';
 import { compose } from 'redux';
 import injectReducer from 'utils/injectReducer';
+
 // import styled from 'styled-components';
 
 
@@ -22,7 +23,7 @@ class Modal extends React.Component {
   }
 
   AcceptForm(ev) {
-    this.props.onAccept(ev, this.props.value);
+    this.props.onAccept(ev, this.props.value1, this.props.value2);
   }
 
   render() {
@@ -33,9 +34,16 @@ class Modal extends React.Component {
           <h4 className="modal-title">{props.title}</h4>
           <div className="input-field col s12">
             <i className="fa fa-lock prefix"></i>
-            <textarea className="materialize-textarea" rows="5" onChange={props.onChangeValue} required></textarea>
-            <label htmlFor="pgpkey">{props.lable}</label>
+            <textarea className="materialize-textarea" rows="5" onChange={props.onChangeValue1} required></textarea>
+            <label htmlFor="pgpkey">{props.label}</label>
           </div>
+          {this.props.twoValue ?
+            <div className="input-field col s12">
+              <i className="fa fa-lock prefix"></i>
+              <textarea className="materialize-textarea" rows="2" onChange={props.onChangeValue2} required></textarea>
+              <label htmlFor="pgppass">{props.label2}</label>
+            </div> : null
+          }
           {props.failed && <div className="alert alert-danger red-text" role="alert">
             <p className="">{props.alert}</p>
           </div>}
@@ -56,24 +64,31 @@ Modal.propTypes = {
   onAccept: PropTypes.func,
   title: PropTypes.string,
   label: PropTypes.string,
+  label2: PropTypes.string,
   failed: PropTypes.bool,
   alert: PropTypes.string,
   id: PropTypes.string,
-  onChangeValue: PropTypes.func,
-  value: PropTypes.string,
+  onChangeValue1: PropTypes.func,
+  value1: PropTypes.string,
+  value2: PropTypes.string,
+  twoValue: PropTypes.bool,
 };
 Modal.defaultProps = {
   failed: true,
 };
 
 const mapStateToProps = createStructuredSelector({
-  value: makeSelectValue(),
+  value1: makeSelectValue1(),
+  value2: makeSelectValue2(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeValue(ev) {
-      dispatch({ type: 'CHANGE_VALUE', value: ev.target.value });
+    onChangeValue1(ev) {
+      dispatch({ type: 'CHANGE_VALUE1', value: ev.target.value });
+    },
+    onChangeValue2(ev) {
+      dispatch({ type: 'CHANGE_VALUE2', value: ev.target.value });
     },
   };
 }
