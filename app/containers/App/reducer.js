@@ -4,12 +4,14 @@ import {
   API_KEY_SUCCESS,
   CHANGE_DECRYPTED_RAW,
   GET_PASTE_SUCCESS,
+  ERROR,
+  CLEAR_ERROR, HIDE_LOADING, POST_NEW_PASTE,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
   error: false,
-  loading: false,
+  loading: true,
   footer: {
     year: 2017,
   },
@@ -44,15 +46,21 @@ function setPaste(state, response) {
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case ERROR:
+      return state.set('error', action.error);
+    case CLEAR_ERROR:
+      return state.set('error', false);
+    case HIDE_LOADING:
+      return state.set('loading', false);
     case API_KEY_SUCCESS:
       return state.set('api_key', action.name);
-    case 'POST_NEW_PASTE_ERROR':
-      return state.set('error', action.err).set('loading', false);
     case POST_NEW_PASTE_SUCCESS:
     case GET_PASTE_SUCCESS:
-      return setPaste(state, action.response);
+      return setPaste(state, action.response).set('loading',false);
     case CHANGE_DECRYPTED_RAW:
       return state.setIn(['paste', 'raw'], action.raw);
+    case POST_NEW_PASTE:
+      return state.set('loading', true);
     default:
       return state;
   }

@@ -16,14 +16,16 @@ import injectReducer from 'utils/injectReducer';
 // import styled from 'styled-components';
 
 
-class Modal extends React.Component {
+export class Modal extends React.Component {
   constructor(props) {
     super();
     this.AcceptForm = this.AcceptForm.bind(this);
   }
 
   AcceptForm(ev) {
-    this.props.onAccept(ev, this.props.value1, this.props.value2);
+    if (this.props.onAccept) {
+      this.props.onAccept(ev, this.props.value1, this.props.value2);
+    }
   }
 
   render() {

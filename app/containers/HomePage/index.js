@@ -49,6 +49,7 @@ import {
   makeSelectPasteRaw,
   makeSelectPasteEncryption,
 } from './selector';
+import {loadingFinished} from "../App/actions";
 
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -59,6 +60,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.openModal = this.openModal.bind(this);
   }
 
+
+  componentDidMount() {
+    this.props.appLoaded();
+  }
   openModal(id) {
     $(`#${id}`).modal({ dismissible: false });
     $(`#${id}`).modal('open');
@@ -186,6 +191,7 @@ HomePage.propTypes = {
   onChangeEncryptedRaw: PropTypes.func,
   onChangeAnyThing: PropTypes.func,
   onSubmitForm: PropTypes.func,
+  appLoaded: PropTypes.func,
   form: PropTypes.object,
   author: PropTypes.string,
   pastetitle: PropTypes.string,
@@ -229,6 +235,9 @@ export function mapDispatchToProps(dispatch) {
       dispatch(postNewPaste(POST_NEW_PASTE));
       // dispatch(push('/about'));
     },
+    appLoaded: () => {
+      dispatch(loadingFinished());
+    }
   };
 }
 

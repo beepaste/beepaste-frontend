@@ -31,11 +31,13 @@ import { Link } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 import { getPasteFromApi, changeDecryptedRaw } from './actions';
 import { GET_PASTE, PASS_MODAL, PGP_MODAL_DECRYPT } from '../App/constants';
+import {loadingFinished} from "../App/actions";
 
 
 export class ViewPastePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor({ match }) {
     super();
+    this.checking = true;
     this.match = match;
     this.openModal = this.openModal.bind(this);
     this.modalConfirm = this.modalConfirm.bind(this);
@@ -44,6 +46,22 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
   componentDidMount() {
     if (this.props.uri === '') {
       this.props.getPaste(this.match.params.id);
+    }
+    this.checkForAuthentication(this.props);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.checkForAuthentication(nextProps);
+  }
+
+  checkForAuthentication(props) {
+    if (props.encryption !== 'no' && props.raw === '' && this.checking) {
+      if (props.encryption === 'passwd') {
+        this.checking = false;
+        this.openModal(PASS_MODAL.id);
+      } else if (props.encryption === 'pgp') {
+        this.checking = false;
+        this.openModal(PGP_MODAL_DECRYPT.id);
+      }
     }
   }
 
@@ -59,7 +77,7 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
       CryptionService.DecryptWithOpenpgp(this.props.encryptedRaw, value1, value2)
         .then((decrypted) => {
           this.props.setDecryptedRaw(decrypted.data);
-        }).catch(() => {
+        }).catch((err) => {
           console.log('oh');
         });
     }
@@ -67,13 +85,7 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
 
   render() {
     const url = `https://beta.beepaste.io/paste/view/${this.props.uri}`;
-    if (this.props.encryption !== 'no' && this.props.raw === '') {
-      if (this.props.encryption === 'passwd') {
-        this.openModal(PASS_MODAL.id);
-      } else {
-        this.openModal(PGP_MODAL_DECRYPT.id);
-      }
-    }
+
     return (
       <main>
         <Wrapper title={this.props.title}>
@@ -101,7 +113,7 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
           </div>
         </Wrapper>
         <Modal {...PASS_MODAL} onAccept={this.modalConfirm} />
-        <Modal {...PGP_MODAL_DECRYPT} twoValue={true} onAccept={this.modalConfirm} />
+        <Modal {...PGP_MODAL_DECRYPT} twoValue onAccept={this.modalConfirm} />
       </main>
     );
   }

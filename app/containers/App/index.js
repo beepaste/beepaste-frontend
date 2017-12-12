@@ -12,7 +12,7 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import HomePage from 'containers/HomePage';
 import ViewPastePage from 'containers/ViewPastePage';
@@ -25,34 +25,42 @@ import PropTypes from 'prop-types';
 import reducer from './reducer';
 import saga from './saga';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { compose, dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectFooter, makeSelectError, makeSelectLoading } from 'containers/App/selectors';
 
-
 import UiEvents from 'components/UiEvents';
+import Toast from 'components/Toast';
+import Loading from 'components/Loading';
+import { loadingFinished } from './actions';
+export default class App extends React.Component {
 
-export default function App(props) {
-  return (
-    <div>
-      <Helmet
-        titleTemplate="BeePaste"
-        defaultTitle="BeePaste"
-      >
-        <meta name="description" content="A React.js Boilerplate application" />
-      </Helmet>
-      <Header />
-      <UiEvents />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/view/:id" component={ViewPastePage} />
-        {/* <Route exact path="/api/doc" component={DocumentPage}/>*/}
-        <Route path="/about" component={AboutusPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-      <Footer />
-    </div>
-  );
+  render() {
+    const props = this.props;
+    return (
+      <div>
+        <Helmet
+          titleTemplate="BeePaste"
+          defaultTitle="BeePaste"
+        >
+          <meta name="description" content="Yet another secure pastebin with encryption!" />
+        </Helmet>
+        <Header />
+        <Toast />
+        <Loading />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/view/:id" component={ViewPastePage} />
+          {/* <Route exact path="/api/doc" component={DocumentPage}/>*/}
+          <Route path="/about" component={AboutusPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+        <Footer />
+      </div>
+    );
+  }
 }
+
+// export default connect(withRouter)(App);

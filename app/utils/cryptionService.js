@@ -24,7 +24,12 @@ export default class CryptionService {
   }
   static DecryptWithOpenpgp(rawtext, privatekey, passphrase) {
     const prive = openpgp.key.readArmored(privatekey);
-    const isSuccess = prive.keys[0].decrypt(passphrase);
+    if(passphrase !== undefined && passphrase !== '') {
+      const isSuccess = prive.keys[0].decrypt(passphrase);
+    }
+    else{
+      const isSuccess = prive.keys[0].decrypt();
+    }
     CryptionService.initWorker();
     const options = {
       message: openpgp.message.readArmored(rawtext),

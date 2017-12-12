@@ -26,7 +26,14 @@ export const GET_PASTE_SUCCESS = 'GET_PASTE_SUCCESS';
 export const GET_API_KEY = 'GET_API_KEY';
 export const API_KEY_SUCCESS = 'API_KEY_SUCCESS';
 export const CHANGE_DECRYPTED_RAW = 'CHANGE_DECRYPTED_RAW';
+export const ERROR = 'ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const SHOW_LOADING = 'SHOW_LOADING';
+export const HIDE_LOADING = 'HIDE_LOADING';
 
+export const MESSAGES = {
+  DEFAULT_API_ERROR: 'Something\'s not right',
+};
 export const PGP_MODAL = {
   title: 'Encrypt your paste with PGP key',
   alert: 'pgp-key is required to encrypt your paste!',

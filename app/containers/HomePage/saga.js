@@ -8,6 +8,8 @@ import { POST_NEW_PASTE } from 'containers/App/constants';
 import { resetForm, postNewPasteResponse, postNewPasteError } from './actions';
 import { makeSelectForm } from './selector';
 import { makeSelectApiKey } from '../App/selectors';
+import { errorOccured } from '../App/actions';
+import {MESSAGES as MESSAGE} from "../App/constants";
 
 
 export function* pasteNew() {
@@ -27,19 +29,26 @@ export function* pasteNew() {
   } else {
     dataToSend.toExpire = false;
   }
-  let timeObject = new Date();
-  timeObject = new Date(timeObject.getTime() + 1000 * pasteExpire);
-  dataToSend.expiryDate = timeObject;
+  dataToSend.expireAfter = pasteExpire;
 
   const reqUrl = 'https://beta.beepaste.io/api/v1/paste';
+  yield put(errorOccured(MESSAGE.DEFAULT_API_ERROR));
 
   try {
-    const result = yield call(request, reqUrl, { method: 'post', body: JSON.stringify(dataToSend), headers: { 'X-TOKEN': apiKey, 'content-type': 'application/json' } });
-    yield put(resetForm());
-    yield put(postNewPasteResponse(result.paste));
-    yield put(push(`view/${result.paste.uri}`));
+    const result = yield call(request, reqUrl, {
+      method: 'post',
+      body: JSON.stringify(dataToSend),
+      headers: { 'X-TOKEN': apiKey, 'content-type': 'application/json' },
+    });
+    if (result.status === 'success') {
+      yield put(resetForm());
+      yield put(postNewPasteResponse(result.paste));
+      yield put(push(`view/${result.paste.uri}`));
+    } else {
+      yield put(errorOccured(result));
+    }
   } catch (err) {
-    yield put(postNewPasteError(err));
+    yield put(errorOccured(err));
   }
 }
 

@@ -228,6 +228,7 @@
     "materialize-css": "^0.100.2",
     "minimist": "1.2.0",
     "openpgp": "^2.5.13",
+    "please-wait": "0.0.5",
     "prop-types": "15.5.10",
     "qrcode.react": "^0.7.2",
     "react": "15.6.1",
@@ -245,6 +246,7 @@
     "reselect": "3.0.1",
     "sanitize.css": "4.1.0",
     "sjcl": "^1.0.7",
+    "spinkit": "^1.2.5",
     "styled-components": "2.0.0",
     "warning": "3.0.0",
     "whatwg-fetch": "2.0.3"
