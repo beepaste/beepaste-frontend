@@ -3,16 +3,16 @@
  */
 
 import { call, put, select, takeLatest, take } from 'redux-saga/effects';
-import { GET_API_KEY } from 'containers/App/constants';
 import { errorOccured } from 'containers/App/actions';
 
 import request from 'utils/request';
 import { apikeyResponse, nextAfterGetApiKey } from '../HomePage/actions';
+import { AUTH_API, BACKEND_ADDRESS, GET_API_KEY } from './constants';
 
 
 export function* getApikey(action) {
-  const { type ,next , ...other } = action;
-  const reqUrl = 'https://beta.beepaste.io/api/v1/auth';
+  const { type, next, ...other } = action;
+  const reqUrl = `${BACKEND_ADDRESS}${AUTH_API}`;
   try {
     const response = yield call(request, reqUrl, { method: 'post', data: {} });
     if (response.status === 'success') {

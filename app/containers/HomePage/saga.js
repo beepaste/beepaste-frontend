@@ -4,12 +4,11 @@
 import request from 'utils/request';
 import { push } from 'react-router-redux';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { POST_NEW_PASTE } from 'containers/App/constants';
+import { MESSAGES, POST_NEW_PASTE, BACKEND_ADDRESS, PASTE_API } from 'containers/App/constants';
 import { resetForm, postNewPasteResponse, postNewPasteError } from './actions';
 import { makeSelectForm } from './selector';
 import { makeSelectApiKey } from '../App/selectors';
 import { errorOccured } from '../App/actions';
-import {MESSAGES as MESSAGE} from "../App/constants";
 
 
 export function* pasteNew() {
@@ -31,8 +30,8 @@ export function* pasteNew() {
   }
   dataToSend.expireAfter = pasteExpire;
 
-  const reqUrl = 'https://beta.beepaste.io/api/v1/paste';
-  yield put(errorOccured(MESSAGE.DEFAULT_API_ERROR));
+  const reqUrl = `${BACKEND_ADDRESS}${PASTE_API}`;
+  yield put(errorOccured(MESSAGES.DEFAULT_API_ERROR));
 
   try {
     const result = yield call(request, reqUrl, {
@@ -54,7 +53,6 @@ export function* pasteNew() {
 
 
 export default function* pasteNewApiCall() {
-  // yield takeLatest(POST_NEW_PASTE, getApikey);
   yield takeLatest(POST_NEW_PASTE, pasteNew);
 }
 

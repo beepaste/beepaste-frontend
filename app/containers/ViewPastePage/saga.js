@@ -1,6 +1,5 @@
-import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-import { apikeyResponse, postNewPasteError } from '../HomePage/actions';
-import { POST_NEW_PASTE, REQUEST_PASTE_NEW, GET_PASTE } from '../App/constants';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { GET_PASTE, BACKEND_ADDRESS, PASTE_API} from '../App/constants';
 import request from '../../utils/request';
 import { makeSelectApiKey } from '../App/selectors';
 import { getPasteSuccess } from './actions';
@@ -10,7 +9,7 @@ import { errorOccured } from '../App/actions';
 function* getPaste(action) {
   const id = action.other.id;
   const apiKey = yield select(makeSelectApiKey());
-  const reqUrl = `https://beta.beepaste.io/api/v1/paste/${id}`;
+  const reqUrl = `${BACKEND_ADDRESS}${PASTE_API}/${id}`;
   try {
     const response = yield call(request, reqUrl, { headers: { 'X-TOKEN': apiKey, 'content-type': 'application/json' } });
     if (response.status === 'success') {

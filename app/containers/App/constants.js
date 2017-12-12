@@ -9,6 +9,9 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
+export const BACKEND_ADDRESS = 'https://beta.beepaste.io/';
+export const AUTH_API = 'api/v1/auth';
+export const PASTE_API = 'api/v1/paste';
 export const POST_NEW_PASTE = 'POST_NEW_PASTE';
 export const POST_NEW_PASTE_SUCCESS = 'POST_NEW_PASTE_SUCCESS';
 export const POST_NEW_PASTE_ERROR = 'POST_NEW_PASTE_ERROR';
