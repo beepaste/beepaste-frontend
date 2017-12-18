@@ -47,7 +47,7 @@ function setPaste(state, response) {
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case ERROR:
-      return state.set('error', action.error);
+      return state.set('error', action.error).set('loading', false);
     case CLEAR_ERROR:
       return state.set('error', false);
     case HIDE_LOADING:

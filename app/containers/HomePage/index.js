@@ -96,8 +96,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   render() {
-    const error = 'oh some error!';
-
     const languageOptions = languages.map((lang) => <option key={lang.value} value={lang.value}>{lang.text}</option>);
     const expireOptions = expires.map((exp) => <option key={exp.value} value={exp.value}>{exp.text}</option>);
     return (
@@ -237,7 +235,7 @@ export function mapDispatchToProps(dispatch) {
     },
     appLoaded: () => {
       dispatch(loadingFinished());
-    }
+    },
   };
 }
 

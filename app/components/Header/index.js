@@ -28,7 +28,7 @@ class Header extends React.Component {
             className="material-icons"
           >menu</i></a>
           <Menu id="nav-mobile" className="right hide-on-med-and-down" />
-          {/* <Menu className="side-nav" id="mobile-demo"/>*/}
+          <Menu className="side-nav" id="mobile-demo" />
         </div>
       </nav>
 

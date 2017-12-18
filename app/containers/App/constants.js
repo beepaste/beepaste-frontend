@@ -58,7 +58,12 @@ export const PASS_MODAL = {
   label: 'password is required to encrypt your paste!',
   id: 'passwordModal',
 };
-
+export const DECRYPT_PASS_MODAL = {
+  title: 'Decrypt your paste with Password-OTP',
+  alert: 'Your Password:',
+  label: 'password is required to decrypt your paste!',
+  id: 'passwordModal',
+};
 export const languages = [{ value: 'abap', text: 'Abap' },
   { value: 'abc', text: 'Abc' },
   { value: 'actionscript', text: 'Actionscript' },

@@ -34,4 +34,7 @@ import './css/style.css';
 import './css/font-awsome.css';
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+.textInMenuItem{
+  padding-left:5px;
+}
   `;

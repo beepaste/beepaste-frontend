@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 function SingleMenu({ to, name, iconclass }) {
   return (
-    <Link to={to}><i className={iconclass} aria-hidden="true"></i>{name}</Link>
+    <Link to={to}><i className={iconclass} aria-hidden="true"></i><span className="textInMenuItem">{name}</span></Link>
   );
 }
 

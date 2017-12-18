@@ -16,7 +16,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import CryptionService from 'utils/cryptionService';
 import reducer from 'containers/HomePage/reducer';
-import saga from './saga';
 import {
   makeSelectPasteTitle,
   makeSelectPasteEncryption,
@@ -27,11 +26,12 @@ import {
   makeSelectPasteAuthor,
   makeSelectPasteUri,
 } from 'containers/App/selectors';
+import saga from './saga';
 import { Link } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 import { getPasteFromApi, changeDecryptedRaw } from './actions';
-import { GET_PASTE, PASS_MODAL, PGP_MODAL_DECRYPT } from '../App/constants';
-import {loadingFinished} from "../App/actions";
+import { GET_PASTE, DECRYPT_PASS_MODAL, PGP_MODAL_DECRYPT } from '../App/constants';
+import { loadingFinished, errorOccured } from '../App/actions';
 
 
 export class ViewPastePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -57,7 +57,7 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
     if (props.encryption !== 'no' && props.raw === '' && this.checking) {
       if (props.encryption === 'passwd') {
         this.checking = false;
-        this.openModal(PASS_MODAL.id);
+        this.openModal(DECRYPT_PASS_MODAL.id);
       } else if (props.encryption === 'pgp') {
         this.checking = false;
         this.openModal(PGP_MODAL_DECRYPT.id);
@@ -72,19 +72,25 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
 
   modalConfirm(ev, value1, value2) {
     if (this.props.encryption === 'passwd') {
-      this.props.setDecryptedRaw(CryptionService.DecryptRawText(this.props.encryptedRaw, value1));
+      try {
+        this.props.setDecryptedRaw(CryptionService.DecryptRawText(this.props.encryptedRaw, value1));
+      } catch (ex) {
+        this.props.throwError('Wrong password');
+        $(`#${DECRYPT_PASS_MODAL.id}`).modal('open');
+        // this.openModal(DECRYPT_PASS_MODAL.id);
+      }
     } else {
       CryptionService.DecryptWithOpenpgp(this.props.encryptedRaw, value1, value2)
         .then((decrypted) => {
           this.props.setDecryptedRaw(decrypted.data);
         }).catch((err) => {
-          console.log('oh');
+          this.props.throwError('Wrong inputs');
         });
     }
   }
 
   render() {
-    const url = `https://beta.beepaste.io/paste/view/${this.props.uri}`;
+    const url = `https://beta.beepaste.io/view/${this.props.uri}`;
 
     return (
       <main>
@@ -112,7 +118,7 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
             />
           </div>
         </Wrapper>
-        <Modal {...PASS_MODAL} onAccept={this.modalConfirm} />
+        <Modal {...DECRYPT_PASS_MODAL} onAccept={this.modalConfirm} />
         <Modal {...PGP_MODAL_DECRYPT} twoValue onAccept={this.modalConfirm} />
       </main>
     );
@@ -130,6 +136,7 @@ ViewPastePage.propTypes = {
   uri: PropTypes.string,
   getPaste: PropTypes.func,
   setDecryptedRaw: PropTypes.func,
+  throwError: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -150,6 +157,9 @@ function mapDispatchToProps(dispatch) {
     },
     setDecryptedRaw(raw) {
       dispatch(changeDecryptedRaw(raw));
+    },
+    throwError(msg) {
+      dispatch(errorOccured(msg));
     },
   };
 }

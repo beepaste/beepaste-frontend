@@ -31,7 +31,6 @@ export function* pasteNew() {
   dataToSend.expireAfter = pasteExpire;
 
   const reqUrl = `${BACKEND_ADDRESS}${PASTE_API}`;
-  yield put(errorOccured(MESSAGES.DEFAULT_API_ERROR));
 
   try {
     const result = yield call(request, reqUrl, {
@@ -44,7 +43,7 @@ export function* pasteNew() {
       yield put(postNewPasteResponse(result.paste));
       yield put(push(`view/${result.paste.uri}`));
     } else {
-      yield put(errorOccured(result));
+      yield put(errorOccured(MESSAGES.DEFAULT_API_ERROR));
     }
   } catch (err) {
     yield put(errorOccured(err));
@@ -55,4 +54,3 @@ export function* pasteNew() {
 export default function* pasteNewApiCall() {
   yield takeLatest(POST_NEW_PASTE, pasteNew);
 }
-

@@ -1,0 +1,53 @@
+doctype html
+html
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  meta(name='description' content='Yet another secure pastebin with encryption!')
+  meta(property='og:description' content='Yet another secure pastebin with encryption!')
+  meta(name='twitter:description' content='Yet another secure pastebin with encryption!')
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+  link(href='/css/style.css', rel='stylesheet', media='screen,projection')
+  link(href='/css/font-awsome.css',rel='stylesheet')
+  title= title
+
+body(style="background: none;")
+  script(src='/js/jquery.min.js')
+  script(src='/js/materialize.min.js')
+
+  input#pasteLanguage(value=paste.syntax, type='hidden')
+  input#pasteEncryption(value=paste.encryption, type='hidden')
+  pre#Editor.editor-view= paste.raw
+
+  #passwdDialog.modal.modal-fixed-footer(role='dialog')
+    .modal-content
+      h4.modal-title Decrypt your paste with Password-OTP
+      #passwdError.alert.alert-danger(role='alert', style='display: none;')
+        | password is required to decrypt your paste!
+      .input-field.col.s12
+        i.fa.fa-lock.prefix
+        textarea#passwd.materialize-textarea(rows='5')
+        label(for='passwd') Your Password:
+    .modal-footer
+      a#passwdSubmit.modal-action.modal-close.waves-effect.waves-teal.btn-flat(href='#!') Continue
+      a.modal-action.modal-close.waves-effect.waves-red.btn-flat(href='#!') Cancel
+  #pgpDialog.modal.modal-fixed-footer(role='dialog')
+    .modal-content
+      h4.modal-title Decrypt your paste with PGP key
+      #passwdError.alert.alert-danger(role='alert', style='display: none;')
+        | pgp-key is required to Decrypt your paste!
+      .input-field.col.s12
+        i.fa.fa-lock.prefix
+        textarea#pgppass.materialize-textarea(rows='2')
+        label(for='pgppass') Your passphrase:
+      .input-field.col.s12
+        i.fa.fa-lock.prefix
+        textarea#pgpkey.materialize-textarea(rows='5')
+        label(for='pgpkey') Your PGP public-key:
+    .modal-footer
+      a#pgpSubmit.modal-action.modal-close.waves-effect.waves-teal.btn-flat(href='#!') Continue
+      a.modal-action.modal-close.waves-effect.waves-red.btn-flat(href='#!') Cancel
+  script(type='text/javascript', src='https://cdn.jsdelivr.net/ace/1.2.6/min/ace.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/sjcl/1.0.7/sjcl.min.js')
+  script(src='/js/openpgp.min.js')
+  script(type='text/javascript', src='/js/beepaste-view.js')
