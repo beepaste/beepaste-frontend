@@ -76,16 +76,27 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
         this.props.setDecryptedRaw(CryptionService.DecryptRawText(this.props.encryptedRaw, value1));
       } catch (ex) {
         this.props.throwError('Wrong password');
-        $(`#${DECRYPT_PASS_MODAL.id}`).modal('open');
-        // this.openModal(DECRYPT_PASS_MODAL.id);
+        setTimeout(() => {
+          $(`#${DECRYPT_PASS_MODAL.id}`).modal('open');
+        }, 300);
       }
     } else {
-      CryptionService.DecryptWithOpenpgp(this.props.encryptedRaw, value1, value2)
-        .then((decrypted) => {
+      const promise = CryptionService.DecryptWithOpenpgp(this.props.encryptedRaw, value1, value2);
+      if (promise) {
+        promise.then((decrypted) => {
           this.props.setDecryptedRaw(decrypted.data);
         }).catch((err) => {
           this.props.throwError('Wrong inputs');
+          setTimeout(() => {
+            $(`#${PGP_MODAL_DECRYPT.id}`).modal('open');
+          }, 300);
         });
+      } else {
+        this.props.throwError('Wrong inputs');
+        setTimeout(() => {
+          $(`#${PGP_MODAL_DECRYPT.id}`).modal('open');
+        }, 300);
+      }
     }
   }
 

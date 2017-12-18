@@ -24,17 +24,21 @@ export default class CryptionService {
   }
   static DecryptWithOpenpgp(rawtext, privatekey, passphrase) {
     CryptionService.initWorker();
-    const prive = openpgp.key.readArmored(privatekey);
-    if (passphrase !== undefined && passphrase !== '') {
-      const isSuccess = prive.keys[0].decrypt(passphrase);
-    } else {
-      const isSuccess = prive.keys[0].decrypt();
+    try{
+      const prive = openpgp.key.readArmored(privatekey);
+      if (passphrase !== undefined && passphrase !== '') {
+        const isSuccess = prive.keys[0].decrypt(passphrase);
+      } else {
+        const isSuccess = prive.keys[0].decrypt();
+      }
+      const options = {
+        message: openpgp.message.readArmored(rawtext),
+        privateKey: prive.keys[0],
+      };
+      return openpgp.decrypt(options);
     }
-
-    const options = {
-      message: openpgp.message.readArmored(rawtext),
-      privateKey: prive.keys[0],
-    };
-    return openpgp.decrypt(options);
+    catch (ex){
+      return undefined;
+    }
   }
 }

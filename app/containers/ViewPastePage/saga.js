@@ -1,5 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { GET_PASTE, BACKEND_ADDRESS, PASTE_API} from '../App/constants';
+import { GET_PASTE, BACKEND_ADDRESS, PASTE_API } from '../App/constants';
+import { push } from 'react-router-redux';
 import request from '../../utils/request';
 import { makeSelectApiKey } from '../App/selectors';
 import { getPasteSuccess } from './actions';
@@ -15,10 +16,11 @@ function* getPaste(action) {
     if (response.status === 'success') {
       yield put(getPasteSuccess(response.paste));
     } else {
+      console.log('else')
       yield put(errorOccured(response));
     }
   } catch (err) {
-    yield put(errorOccured(err));
+    yield put(push('/notfound'));
   }
 }
 
