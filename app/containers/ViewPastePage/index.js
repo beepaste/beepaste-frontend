@@ -30,7 +30,7 @@ import saga from './saga';
 import { Link } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 import { getPasteFromApi, changeDecryptedRaw } from './actions';
-import { GET_PASTE, DECRYPT_PASS_MODAL, PGP_MODAL_DECRYPT } from '../App/constants';
+import { GET_PASTE, DECRYPT_PASS_MODAL, PGP_MODAL_DECRYPT, BASE_URL } from '../App/constants';
 import { loadingFinished, errorOccured } from '../App/actions';
 
 
@@ -101,8 +101,9 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
   }
 
   render() {
-    const url = `https://beta.beepaste.io/view/${this.props.uri}`;
-
+    const url = `${BASE_URL}view/${this.props.uri}`;
+    const embedCode = `<iframe src="${BASE_URL}view/embed/${this.props.uri}" style="border:none;width:100%;min-height:300px;"></iframe>`;
+    const viewRawUrl = `${BASE_URL}view/raw/${this.props.uri}`;
     return (
       <main>
         <Wrapper title={this.props.title}>
@@ -113,11 +114,14 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
                 to={url}
               >{url}</Link></div>
               <div className="details">short URL <a href={this.props.shorturl}>{this.props.shorturl}</a></div>
-              <div className="details">Embed Code: <span className="red-text">in beta, currently not working!</span>
-                <input data-lang-showcode="Show Code" id="embed_field" type="text" value="{{ embedCode }}" /></div>
+              <div className="details">Embed Code:
+                <input data-lang-showcode="Show Code" id="embed_field" type="text" value={embedCode} />
+              </div>
+              <div className="details">
+                <a href={viewRawUrl}>View Raw</a>
+              </div>
             </div>
             <div className="col s12 m3 l2 right">
-              {/* {<ngx-qrcode [qrc-element-type]="qrType" [qrc-value] = "qrValue"></ngx-qrcode>}*/}
               <QRCode value={url} />
             </div>
           </div>

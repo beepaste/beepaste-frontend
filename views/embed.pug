@@ -38,12 +38,12 @@ body(style="background: none;")
         | pgp-key is required to Decrypt your paste!
       .input-field.col.s12
         i.fa.fa-lock.prefix
-        textarea#pgppass.materialize-textarea(rows='2')
-        label(for='pgppass') Your passphrase:
+        textarea#pgpkey.materialize-textarea(rows='5')
+        label(for='pgpkey') Your PGP private-key:
       .input-field.col.s12
         i.fa.fa-lock.prefix
-        textarea#pgpkey.materialize-textarea(rows='5')
-        label(for='pgpkey') Your PGP public-key:
+        textarea#pgppass.materialize-textarea(rows='2')
+        label(for='pgppass') Your passphrase:
     .modal-footer
       a#pgpSubmit.modal-action.modal-close.waves-effect.waves-teal.btn-flat(href='#!') Continue
       a.modal-action.modal-close.waves-effect.waves-red.btn-flat(href='#!') Cancel

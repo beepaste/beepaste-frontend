@@ -35,6 +35,7 @@ import UiEvents from 'components/UiEvents';
 import Toast from 'components/Toast';
 import Loading from 'components/Loading';
 import { loadingFinished } from './actions';
+
 export default class App extends React.Component {
 
   render() {
@@ -42,9 +43,9 @@ export default class App extends React.Component {
     return (
       <div>
         <Helmet
-          titleTemplate="BeePaste"
           defaultTitle="BeePaste"
         >
+          <title>BeePaste - Yet another secure pastebin with encryption!</title>
           <meta name="description" content="Yet another secure pastebin with encryption!" />
         </Helmet>
         <Header />

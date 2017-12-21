@@ -8,7 +8,7 @@
  * Follow this format:
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
-
+export const BASE_URL = 'http://localhost:3000/';
 export const BACKEND_ADDRESS = 'https://beta.beepaste.io/';
 export const AUTH_API = 'api/v1/auth';
 export const PASTE_API = 'api/v1/paste';
