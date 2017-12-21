@@ -1,8 +1,3 @@
-/*
- *
- * ViewPastePage actions
- *
- */
 import { CHANGE_DECRYPTED_RAW, GET_API_KEY, GET_PASTE_SUCCESS } from '../App/constants';
 
 export function getPasteFromApi(next, id) {

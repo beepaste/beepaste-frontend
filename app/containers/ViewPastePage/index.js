@@ -1,10 +1,7 @@
-/**
- *
- * ViewPastePage
- *
- */
-
 import React from 'react';
+import { Link } from 'react-router-dom';
+import QRCode from 'qrcode.react';
+import { errorOccured } from 'containers/App/actions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -27,11 +24,8 @@ import {
   makeSelectPasteUri,
 } from 'containers/App/selectors';
 import saga from './saga';
-import { Link } from 'react-router-dom';
-import QRCode from 'qrcode.react';
 import { getPasteFromApi, changeDecryptedRaw } from './actions';
 import { GET_PASTE, DECRYPT_PASS_MODAL, PGP_MODAL_DECRYPT, BASE_URL } from '../App/constants';
-import { loadingFinished, errorOccured } from '../App/actions';
 
 
 export class ViewPastePage extends React.Component { // eslint-disable-line react/prefer-stateless-function

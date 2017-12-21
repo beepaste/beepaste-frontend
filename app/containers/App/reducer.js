@@ -56,7 +56,7 @@ function appReducer(state = initialState, action) {
       return state.set('api_key', action.name);
     case POST_NEW_PASTE_SUCCESS:
     case GET_PASTE_SUCCESS:
-      return setPaste(state, action.response).set('loading',false);
+      return setPaste(state, action.response).set('loading', false);
     case CHANGE_DECRYPTED_RAW:
       return state.setIn(['paste', 'raw'], action.raw);
     case POST_NEW_PASTE:

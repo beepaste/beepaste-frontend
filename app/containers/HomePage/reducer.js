@@ -8,8 +8,6 @@ import {
   CHANGE_RAW_CODE,
   CHANGE_ENCRYPTION,
   CHANGE_ENCRYPTED_PASTE_RAW,
-  POST_NEW_PASTE_SUCCESS,
-  POST_NEW_PASTE,
 } from 'containers/App/constants';
 
 const initialState = fromJS({

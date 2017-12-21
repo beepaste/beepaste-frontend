@@ -34,7 +34,8 @@ class Select extends React.Component {
     return (<div className="input-field col s12 m3">
       <i className={`fa prefix ${this.props.icon}`}></i>
       <select
-        id={id} ref={(ref) => (this.selectInput = ref)} defaultValue={defaultValue} name={name}
+        id={id}
+        ref={(ref) => (this.selectInput = ref)} defaultValue={defaultValue} name={name}
       >
         {options}
       </select>

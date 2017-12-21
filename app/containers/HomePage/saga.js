@@ -1,11 +1,8 @@
-/**
- * Gets the repositories of the user from Github
- */
 import request from 'utils/request';
 import { push } from 'react-router-redux';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { MESSAGES, POST_NEW_PASTE, BACKEND_ADDRESS, PASTE_API } from 'containers/App/constants';
-import { resetForm, postNewPasteResponse, postNewPasteError } from './actions';
+import { resetForm, postNewPasteResponse } from './actions';
 import { makeSelectForm } from './selector';
 import { makeSelectApiKey } from '../App/selectors';
 import { errorOccured } from '../App/actions';

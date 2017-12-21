@@ -1,0 +1,18 @@
+FROM node:6
+
+COPY internals/scripts beepaste/internals/scripts
+COPY package.json beepaste/package.json
+COPY build beepaste/build
+COPY server beepaste/server
+COPY static beepaste/static
+COPY views beepaste/views
+
+WORKDIR beepaste/
+
+ENV NODE_ENV production
+
+RUN npm install
+
+EXPOSE 3000
+
+ENTRYPOINT ["npm", "run", "start:prod"]

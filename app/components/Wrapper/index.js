@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 const Wrapper = (props) => (<div className="container">
   <div className="row">
     <div className="col s12 m12">
@@ -11,4 +12,9 @@ const Wrapper = (props) => (<div className="container">
     </div>
   </div>
 </div>);
+
+Wrapper.propTypes = {
+  children: PropTypes.any,
+  title: PropTypes.string,
+};
 export default Wrapper;
