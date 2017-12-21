@@ -199,3 +199,112 @@ export const expires = [{ value: '0', text: 'Keep Forever' },
   { value: '3600', text: '1 Hour' },
   { value: '86400', text: '1 Day' },
   { value: '604800', text: '1 Week' }];
+
+export const AUTHORS_FIRST_ROW = [
+  {
+    id: 1,
+    name: 'MohammadAmin Vahedinia',
+    img: 'https://avatars1.githubusercontent.com/u/16556650',
+    about: 'Started Programming with C/C++, continued with both C++ and Python, and also Started the project! I also write @ hexlinux.ir (my own blog about linux and open-source apps!)',
+    social: [
+      {
+        name: 'github',
+        icon: 'fa-github',
+        link: 'http://github.com/Mr0Null',
+        color: 'blue-grey darken-2',
+      },
+      {
+        name: 'twitter',
+        icon: 'fa-twitter',
+        link: 'https://twitter.com/MrC0de',
+        color: 'blue lighten-2',
+      },
+      {
+        name: 'email',
+        icon: 'fa-envelope-o',
+        link: 'mailto:mohammadamin_bpst@vahedinia.me',
+        color: 'light-blue darken-2',
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: 'Alireza Mosajjal',
+    img: 'https://avatars2.githubusercontent.com/u/10158936',
+    about: 'DevOps engineer, Python enthusiast, Chromium contributor, Linux guy. Human, I guess.. ?',
+    social: [
+      {
+        name: 'github',
+        icon: 'fa-github',
+        link: 'https://github.com/mosajjal',
+        color: 'blue-grey darken-2',
+      },
+      {
+        name: 'twitter',
+        icon: 'fa-twitter',
+        link: 'https://twitter.com/AliMosajjal',
+        color: 'blue lighten-2',
+      },
+      {
+        name: 'email',
+        icon: 'fa-envelope-o',
+        link: 'mailto:mosajjal@gmail.com',
+        color: 'light-blue darken-2',
+      },
+    ],
+  },
+  { id: 3,
+    name: 'Adel Piri',
+    img: 'https://avatars2.githubusercontent.com/u/23556133?v=3&s=460',
+    about: 'Cybersecurity researcher, Network security expert, Exploit Dev',
+    social: [
+      {
+        name: 'github',
+        icon: 'fa-github',
+        link: 'https://github.com/mohajem',
+        color: 'blue-grey darken-2',
+      },
+      {
+        name: 'twitter',
+        icon: 'fa-twitter',
+        link: 'https://twitter.com/adel_mohajem',
+        color: 'blue lighten-2',
+      },
+      {
+        name: 'email',
+        icon: 'fa-envelope-o',
+        link: 'mailto:mohajem.war@gmail.com',
+        color: 'light-blue darken-2',
+      },
+    ],
+  },
+];
+
+export const AUTHORS_SECOND_ROW = [
+  {
+    id: 4,
+    name: 'Mostafa Asadi',
+    img: 'https://avatars1.githubusercontent.com/u/12208050',
+    about: 'A developer who loves Free software , I try to make world better.',
+    social: [
+      {
+        name: 'github',
+        icon: 'fa-github',
+        link: 'https://github.com/mostafaasadi',
+        color: 'blue-grey darken-2',
+      },
+      {
+        name: 'twitter',
+        icon: 'fa-twitter',
+        link: 'https://twitter.com/mostafaasadi73',
+        color: 'blue lighten-2',
+      },
+      {
+        name: 'email',
+        icon: 'fa-envelope-o',
+        link: 'mailto:mostafaasadi73@gmail.com',
+        color: 'light-blue darken-2',
+      },
+    ],
+  },
+];
