@@ -205,7 +205,7 @@
     ],
     "moduleNameMapper": {
       ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
-      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
+      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|js)$": "<rootDir>/internals/mocks/image.js"
     },
     "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
     "testRegex": "tests/.*\\.test\\.js$"
@@ -229,6 +229,7 @@
     "openpgp": "^2.5.13",
     "please-wait": "0.0.5",
     "prop-types": "15.5.10",
+    "pug": "^2.0.0-rc.4",
     "qrcode.react": "^0.7.2",
     "react": "15.6.1",
     "react-ace": "^5.7.0",
