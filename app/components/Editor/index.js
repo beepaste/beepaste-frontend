@@ -7,7 +7,6 @@
 import React from 'react';
 import AceEditor from 'react-ace';
 import { languages } from 'containers/App/constants';
-import 'brace/mode/java';
 import 'brace/theme/xcode';
 import PropTypes from 'prop-types';
 
