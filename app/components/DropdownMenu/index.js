@@ -19,7 +19,7 @@ function DropdownMenu({ name, items }) {
   ));
   return (
     <div>
-      <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      <a href="#" className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {name}
       </a>
       <ul className="dropdown-menu">{dropdownitems}</ul>

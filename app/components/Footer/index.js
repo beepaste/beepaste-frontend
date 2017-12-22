@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectFooterYear } from './selectors';
-import { makeSelectFooter } from '../../containers/App/selectors';
 
 function Footer(props) {
   const year = props.year;

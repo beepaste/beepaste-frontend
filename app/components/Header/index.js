@@ -22,7 +22,7 @@ class Header extends React.Component {
       <nav>
         <div className="nav-wrapper container">
           <Link className="brand-logo" to="/">
-            <img src={logo} />
+            <img alt="BeePaste Logo" src={logo} />
           </Link>
           <a href="#" data-activates="mobile-demo" className="button-collapse"><i
             className="material-icons"
