@@ -1,6 +1,4 @@
 import sjcl from 'sjcl';
-import worker from '!file-loader?name=[name].[ext]!openpgp/dist/openpgp.worker.min';
-import '!file-loader?name=[name].[ext]!openpgp/dist/openpgp.min';
 const openpgp = require('openpgp/dist/openpgp.min');
 
 export default class CryptionService {
@@ -12,7 +10,7 @@ export default class CryptionService {
     return sjcl.decrypt(password, rawtext);
   }
   static initWorker() {
-    openpgp.initWorker({ path: worker });
+    openpgp.initWorker({ path: '/openpgp.worker.min.js' });
   }
   static EncryptWithOpenpgp(rawtext, publickey) {
     CryptionService.initWorker();

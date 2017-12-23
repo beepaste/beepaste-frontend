@@ -41,8 +41,8 @@ import '!file-loader?name=[name].[ext]!./images/ms-icon-144x144.png';
 import '!file-loader?name=[name].[ext]!./images/ms-icon-150x150.png';
 import '!file-loader?name=[name].[ext]!./images/ms-icon-310x310.png';
 import '!file-loader?name=[name].[ext]!./images/ms-icon-70x70.png';
-
-
+import '!file-loader?name=[name].[ext]!openpgp/dist/openpgp.worker.min';
+import '!file-loader?name=[name].[ext]!openpgp/dist/openpgp.min';
 import '!file-loader?name=[name].[ext]!./manifest.json';
 /* eslint-enable import/no-unresolved, import/extensions */
 
