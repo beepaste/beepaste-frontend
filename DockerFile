@@ -1,17 +1,20 @@
 FROM node:6
 
-COPY internals/scripts beepaste/internals/scripts
+COPY app beepaste/app
+# COPY docs beepaste/docs
+COPY internals beepaste/internals
 COPY package.json beepaste/package.json
-COPY build beepaste/build
+# COPY build beepaste/build
 COPY server beepaste/server
 COPY static beepaste/static
 COPY views beepaste/views
 
 WORKDIR beepaste/
 
-ENV NODE_ENV production
+# ENV NODE_ENV production
 
 RUN npm install
+RUN npm run build
 
 EXPOSE 3000
 
