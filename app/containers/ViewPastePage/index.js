@@ -131,7 +131,7 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
         <Modal {...PGP_MODAL_DECRYPT} twoValue onAccept={this.modalConfirm} />
         <div className="fixed-action-btn">
           <a className="btn-floating btn-large blue">
-            <i className="large fa-share"></i>
+            <i className="large fa fa-share"></i>
           </a>
           <ul>
             <li><a href={`https://telegram.me/share/url?url=${this.props.shorturl}`} className="btn-floating blue darken-1"><i className="fa fa-paper-plane"></i></a></li>
