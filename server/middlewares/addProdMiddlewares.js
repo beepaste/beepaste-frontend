@@ -22,7 +22,7 @@ module.exports = function addProdMiddlewares(app, options) {
   app.get('/view/raw/:id', (req, res) => {
     getPaste(req.params.id, (response) => {
       if (response.status === 'success') {
-        res.send(response.paste.raw);
+        res.send(`<pre style="word-wrap: break-word; white-space: pre-wrap;">${response.paste.raw}</pre>`);
       } else {
         res.send('Something\'s not right');
       }
