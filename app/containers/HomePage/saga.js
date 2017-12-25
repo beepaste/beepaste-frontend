@@ -38,7 +38,7 @@ export function* pasteNew() {
     if (result.status === 'success') {
       yield put(resetForm());
       yield put(postNewPasteResponse(result.paste));
-      yield put(push(`view/${result.paste.uri}`));
+      yield put(push(`paste/view/${result.paste.uri}`));
     } else {
       yield put(errorOccured(MESSAGES.DEFAULT_API_ERROR));
     }
