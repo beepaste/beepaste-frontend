@@ -6910,7 +6910,7 @@ body {
 .card .view-card {
   padding-bottom: 0; }
 
-body {
+.siteBody {
   display: flex;
   min-height: 100vh;
   flex-direction: column; }
