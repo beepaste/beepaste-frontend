@@ -17,9 +17,9 @@ function Footer(props) {
     <footer className="page-footer sticky-footer">
       <div className="footer-copyright">
         <div className="container center">
-          <i className="fa fa-copyright" aria-hidden="true"></i> 2015 - { year } <u><a class="grey-text text-lighten-5" href="https://github.com/beepaste">BeePaste</a></u> All rights reserved. Follow us on
-          <a className="blue-text text-lighten-4" href="https://twitter.com/beepasteio"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-          <a className="black-text text-lighten-4" href="https://github.com/beepaste"><i class="fa fa-github" aria-hidden="true"></i></a>
+          <i className="fa fa-copyright" aria-hidden="true"></i> 2015 - { year } <u><a className="grey-text text-lighten-5" href="https://github.com/beepaste">BeePaste</a></u> All rights reserved. Follow us on
+          <a className="blue-text text-lighten-4" href="https://twitter.com/beepasteio"><i className="fa fa-twitter" aria-hidden="true"></i></a>
+          <a className="black-text text-lighten-4" href="https://github.com/beepaste"><i className="fa fa-github" aria-hidden="true"></i></a>
         </div>
       </div>
     </footer>
