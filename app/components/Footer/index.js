@@ -14,7 +14,7 @@ import { makeSelectFooterYear } from './selectors';
 function Footer(props) {
   const year = props.year;
   return (
-    <footer className="page-footer sticky-footer">
+    <footer className="page-footer">
       <div className="footer-copyright">
         <div className="container center">
           <i className="fa fa-copyright" aria-hidden="true"></i> 2015 - { year } <u><a className="grey-text text-lighten-5" href="https://github.com/beepaste">BeePaste</a></u> All rights reserved. Follow us on
