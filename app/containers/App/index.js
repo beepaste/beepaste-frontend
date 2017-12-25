@@ -27,7 +27,7 @@ export default class App extends React.Component {
         <Loading />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/view/:id" component={ViewPastePage} />
+          <Route exact path="/paste/view/:id" component={ViewPastePage} />
           <Route path="/about" component={AboutusPage} />
           <Route path="/notfound" component={NotFoundPage} />
           <Route component={NotFoundPage} />
