@@ -195,7 +195,7 @@ export const AUTHORS_FIRST_ROW = [
     id: 1,
     name: 'MohammadAmin Vahedinia',
     img: 'https://avatars1.githubusercontent.com/u/16556650',
-    about: 'Started Programming with C/C++, continued with both C++ and Python, and also Started the project! I also write @ hexlinux.ir (my own blog about linux and open-source apps!)',
+    about: 'Pursuing my dreams in codes, fell for ML! Data guy and DevOps enthusiast.',
     social: [
       {
         name: 'github',
@@ -244,26 +244,26 @@ export const AUTHORS_FIRST_ROW = [
     ],
   },
   { id: 3,
-    name: 'Adel Piri',
-    img: 'https://avatars2.githubusercontent.com/u/23556133?v=3&s=460',
-    about: 'Cybersecurity researcher, Network security expert, Exploit Dev',
+    name: 'Mostafa Shaheydari',
+    img: 'https://avatars0.githubusercontent.com/u/5729248?s=400&v=4',
+    about: 'Python Developer, Angularjs and React Developer and Buggy Man',
     social: [
       {
         name: 'github',
         icon: 'fa-github',
-        link: 'https://github.com/mohajem',
+        link: 'https://github.com/Pymossy',
         color: 'blue-grey darken-2',
       },
       {
         name: 'twitter',
         icon: 'fa-twitter',
-        link: 'https://twitter.com/adel_mohajem',
+        link: 'https://twitter.com/MShaheydari',
         color: 'blue lighten-2',
       },
       {
         name: 'email',
         icon: 'fa-envelope-o',
-        link: 'mailto:mohajem.war@gmail.com',
+        link: 'mailto:shaheydari.mostafa@gmail.com',
         color: 'light-blue darken-2',
       },
     ],
