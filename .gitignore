@@ -11,3 +11,10 @@ npm-debug.log
 .idea
 
 yarn\.lock
+
+server/middlewares/*.ttf
+server/middlewares/*.woff
+server/middlewares/*.woff2
+server/middlewares/*.eot
+server/middlewares/*.otf
+server/middlewares/*.svg

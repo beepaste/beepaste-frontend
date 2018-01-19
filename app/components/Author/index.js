@@ -22,7 +22,7 @@ function Author(props) {
     <div className="col s12 m4 l4">
       <div className="card">
         <div className="card-image">
-          <img alt={name} src={props.img} />
+          <img alt={props.name} src={props.img} />
         </div>
         <div className="card-content">
           <div className="title-container">

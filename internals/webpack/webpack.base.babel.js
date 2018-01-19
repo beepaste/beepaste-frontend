@@ -4,7 +4,18 @@
 
 const path = require('path');
 const webpack = require('webpack');
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
+const assetsPluginInstance = new AssetsPlugin({
+  path: path.join(process.cwd(), 'server', 'middlewares'),
+  filename: 'generated.assets.json',
+});
+const extractVendorCSSPlugin = new ExtractTextPlugin('vendor.[contenthash].css');
+const vendorCSSLoaders = extractVendorCSSPlugin.extract({
+  fallback: 'style-loader',
+  use: 'css-loader',
+});
+const isBuildingDll = Boolean(process.env.BUILDING_DLL);
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
 // see https://github.com/webpack/loader-utils/issues/56 parseQuery() will be replaced with getOptions()
@@ -33,13 +44,13 @@ module.exports = (options) => ({
         // for a list of loaders, see https://webpack.js.org/loaders/#styling
         test: /\.css$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader'],
+        use: vendorCSSLoaders,
       },
       {
         // Preprocess 3rd party .css files located in node_modules
         test: /\.css$/,
         include: /node_modules/,
-        use: ['style-loader', 'css-loader'],
+        use: vendorCSSLoaders,
       },
       {
         test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
@@ -97,7 +108,10 @@ module.exports = (options) => ({
       },
     }),
     new webpack.NamedModulesPlugin(),
-  ]),
+    extractVendorCSSPlugin,
+  ]).concat(
+    isBuildingDll ? [] : [assetsPluginInstance]
+  ),
   resolve: {
     modules: ['app', 'node_modules'],
     extensions: [
@@ -110,6 +124,9 @@ module.exports = (options) => ({
       'jsnext:main',
       'main',
     ],
+  },
+  node:{
+    fs: 'empty'
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
