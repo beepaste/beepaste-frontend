@@ -5,31 +5,47 @@
  */
 
 import React from 'react';
-import AceEditor from 'react-ace';
 import { languages } from 'containers/App/constants';
-import 'brace/theme/xcode';
+
 import PropTypes from 'prop-types';
-
+let xcode;
+let AceEditor;
 // import styled from 'styled-components';
-languages.forEach((lang) => {
-  require(`brace/mode/${lang.value}`);
-  require(`brace/snippets/${lang.value}`);
-});
 
-function Editor(props) { // eslint-disable-line react/prefer-stateless-function
-  return (
-    <AceEditor
-      mode={props.mode}
-      theme="xcode"
-      width="auto"
-      value={props.defaultValue}
-      onChange={props.onChangeContent}
-      name="Editor"
-      minLines={20}
-      maxLines={25}
-      readOnly={props.readonly === true}
-    />
-  );
+
+class Editor extends React.Component { // eslint-disable-line react/prefer-stateless-function
+    constructor(props){
+      super();
+      this.props = props;
+    }
+    componentDidMount(){
+      AceEditor = require('react-ace');
+      xcode = require('brace/theme/xcode');
+      languages.forEach((lang) => {
+        require(`brace/mode/${lang.value}`);
+        require(`brace/snippets/${lang.value}`);
+      });
+    }
+    render(){
+      let props = this.props;
+      console.log('ere')
+      return (
+        <div>
+         {AceEditor ?
+        <AceEditor
+          mode={props.mode}
+          theme="xcode"
+          width="auto"
+          value={props.defaultValue}
+          onChange={props.onChangeContent}
+          name="Editor"
+          minLines={20}
+          maxLines={25}
+          readOnly={props.readonly === true}
+        /> : <div>{props.defaultValue}</div>}
+        </div>
+      );
+  }
 }
 
 Editor.propTypes = {

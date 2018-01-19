@@ -62,6 +62,7 @@ const makeSelectPasteUri = () => createSelector(
 
 
 export {
+  makeSelectLocation,
   selectGlobal,
   selectRoute,
   makeSelectFooter,

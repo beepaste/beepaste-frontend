@@ -12,7 +12,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
-import 'materialize-css/dist/js/materialize';
 
 import App from 'containers/App';
 import '!file-loader?name=[name].[ext]!./images/favicon.ico';
@@ -44,6 +43,7 @@ import '!file-loader?name=[name].[ext]!./images/ms-icon-70x70.png';
 import '!file-loader?name=[name].[ext]!openpgp/dist/openpgp.worker.min';
 import '!file-loader?name=[name].[ext]!openpgp/dist/openpgp.min';
 import '!file-loader?name=[name].[ext]!./manifest.json';
+import 'materialize-css/dist/js/materialize';
 /* eslint-enable import/no-unresolved, import/extensions */
 
 import configureStore from './configureStore';
@@ -52,7 +52,8 @@ import configureStore from './configureStore';
 import './global-styles';
 
 // Create redux store with history
-const initialState = {};
+const initialState = window.APP_STATE || {};
+console.log('init', initialState);
 const history = createHistory();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');

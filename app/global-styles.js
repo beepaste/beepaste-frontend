@@ -32,6 +32,8 @@ import '!file-loader?name=[name].[ext]!./fonts/roboto/Roboto-Thin.woff';
 import '!file-loader?name=[name].[ext]!./fonts/roboto/Roboto-Thin.woff2';
 import './css/style.css';
 import './css/font-awsome.css';
+import 'please-wait/build/please-wait.css';
+import 'spinkit/css/spinners/5-pulse.css';
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
 .textInMenuItem{

@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const compression = require('compression');
 const getPaste = require('../pages/getPaste');
+const handleSSR = require('./handleSSR');
 
 module.exports = function addProdMiddlewares(app, options) {
   const publicPath = options.publicPath || '/';
@@ -42,5 +43,6 @@ module.exports = function addProdMiddlewares(app, options) {
       }
     });
   });
-  app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
+  // app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
+  app.get('*', handleSSR);
 };
