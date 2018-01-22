@@ -60,8 +60,8 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
   }
 
   openModal(id) {
-    $(`#${id}`).modal({ dismissible: false });
-    $(`#${id}`).modal('open');
+    $(`#${id}`).modal({ dismissible: false }); // eslint-disable-line no-undef
+    $(`#${id}`).modal('open'); // eslint-disable-line no-undef
   }
 
   modalConfirm(ev, value1, value2) {
@@ -71,7 +71,7 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
       } catch (ex) {
         this.props.throwError('Wrong password');
         setTimeout(() => {
-          $(`#${DECRYPT_PASS_MODAL.id}`).modal('open');
+          $(`#${DECRYPT_PASS_MODAL.id}`).modal('open'); // eslint-disable-line no-undef
         }, 300);
       }
     } else {
@@ -82,13 +82,13 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
         }).catch((err) => {
           this.props.throwError('Wrong inputs');
           setTimeout(() => {
-            $(`#${PGP_MODAL_DECRYPT.id}`).modal('open');
+            $(`#${PGP_MODAL_DECRYPT.id}`).modal('open'); // eslint-disable-line no-undef
           }, 300);
         });
       } else {
         this.props.throwError('Wrong inputs');
         setTimeout(() => {
-          $(`#${PGP_MODAL_DECRYPT.id}`).modal('open');
+          $(`#${PGP_MODAL_DECRYPT.id}`).modal('open'); // eslint-disable-line no-undef
         }, 300);
       }
     }

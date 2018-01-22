@@ -14,37 +14,36 @@ let AceEditor;
 
 
 class Editor extends React.Component { // eslint-disable-line react/prefer-stateless-function
-    constructor(props){
-      super();
-      this.props = props;
-    }
-    componentDidMount(){
-      AceEditor = require('react-ace');
-      xcode = require('brace/theme/xcode');
-      languages.forEach((lang) => {
-        require(`brace/mode/${lang.value}`);
-        require(`brace/snippets/${lang.value}`);
-      });
-    }
-    render(){
-      let props = this.props;
-      console.log('ere')
-      return (
-        <div>
-         {AceEditor ?
-        <AceEditor
-          mode={props.mode}
-          theme="xcode"
-          width="auto"
-          value={props.defaultValue}
-          onChange={props.onChangeContent}
-          name="Editor"
-          minLines={20}
-          maxLines={25}
-          readOnly={props.readonly === true}
-        /> : <div>{props.defaultValue}</div>}
-        </div>
-      );
+  constructor(props) {
+    super();
+    this.props = props;
+  }
+  componentWillMount() {
+    AceEditor = require('react-ace').default; // eslint-disable-line global-require
+    xcode = require('brace/theme/xcode'); // eslint-disable-line global-require
+    languages.forEach((lang) => {
+      require(`brace/mode/${lang.value}`); // eslint-disable-line global-require
+      require(`brace/snippets/${lang.value}`); // eslint-disable-line global-require
+    });
+  }
+  render() {
+    const props = this.props;
+    return (
+      <div>
+        {AceEditor ?
+          <AceEditor
+            mode={props.mode}
+            theme="xcode"
+            width="auto"
+            value={props.defaultValue}
+            onChange={props.onChangeContent}
+            name="Editor"
+            minLines={20}
+            maxLines={25}
+            readOnly={props.readonly === true}
+          /> : <div>{props.defaultValue}</div>}
+      </div>
+    );
   }
 }
 

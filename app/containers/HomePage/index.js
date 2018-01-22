@@ -52,8 +52,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.props.appLoaded();
   }
   openModal(id) {
-    $(`#${id}`).modal({ dismissible: false });
-    $(`#${id}`).modal('open');
+    $(`#${id}`).modal({ dismissible: false }); // eslint-disable-line no-undef
+    $(`#${id}`).modal('open'); // eslint-disable-line no-undef
   }
 
   modalConfirm(ev, value) {
@@ -63,7 +63,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       CryptionService.EncryptWithOpenpgp(this.props.pasteraw, value).then((cryptedValue) => {
         this.props.onChangeEncryptedRaw(cryptedValue.data);
       }).catch(() => {
-        console.error('oh'); // todo error handling
+        console.error('oh'); // TODO error handling
       });
     }
     this.props.onSubmitForm(ev);
@@ -99,7 +99,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
                 <div className="input-field col s12 m3">
                   <i className="fa fa-flag prefix"></i>
                   <input
-                    id="pasteTitle" type="text" className="" name="pasteTitle" value={this.props.pastetitle}
+                    id="pasteTitle"
+                    type="text"
+                    name="pasteTitle"
+                    value={this.props.pastetitle}
                     onChange={this.props.onChangeAnyThing}
                   />
                   <label className={this.props.pastetitle !== undefined && this.props.pastetitle !== '' ? 'active' : ''} htmlFor="pasteTitle">Title</label>
