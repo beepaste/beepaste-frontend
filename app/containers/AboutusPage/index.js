@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { END } from 'redux-saga';
 import Wrapper from 'components/Wrapper';
 import Author from 'components/Author';
 import { AUTHORS_FIRST_ROW, AUTHORS_SECOND_ROW } from 'containers/App/constants';
@@ -10,6 +11,11 @@ import { loadingFinished } from '../App/actions';
 
 export class AboutusPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
+  componentWillMount() {
+    if (typeof window === 'undefined') {
+      this.props.endSaga();
+    }
+  }
   componentDidMount() {
     this.props.appLoaded();
   }
@@ -52,6 +58,7 @@ export class AboutusPage extends React.Component { // eslint-disable-line react/
 
 AboutusPage.propTypes = {
   appLoaded: PropTypes.func,
+  endSaga: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -60,6 +67,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    endSaga: () => {
+      dispatch(END);
+    },
     appLoaded: () => {
       dispatch(loadingFinished());
     },

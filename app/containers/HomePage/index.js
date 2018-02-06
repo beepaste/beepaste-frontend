@@ -1,4 +1,5 @@
 import React from 'react';
+import { END } from 'redux-saga';
 import { loadingFinished } from 'containers/App/actions';
 import {
   PGP_MODAL,
@@ -47,7 +48,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.openModal = this.openModal.bind(this);
   }
 
-
+  componentWillMount() {
+    if (typeof window === 'undefined') {
+      this.props.endSaga();
+    }
+  }
   componentDidMount() {
     this.props.appLoaded();
   }
@@ -180,6 +185,7 @@ HomePage.propTypes = {
   onChangeAnyThing: PropTypes.func,
   onSubmitForm: PropTypes.func,
   appLoaded: PropTypes.func,
+  endSaga: PropTypes.func,
   form: PropTypes.object,
   author: PropTypes.string,
   pastetitle: PropTypes.string,
@@ -202,6 +208,9 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
+    endSaga: () => {
+      dispatch(END);
+    },
     onChangeRaw: (evt) => {
       dispatch({ type: CHANGE_RAW_CODE, name: evt });
     },

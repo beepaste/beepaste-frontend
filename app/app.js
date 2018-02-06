@@ -53,7 +53,6 @@ import './global-styles';
 
 // Create redux store with history
 const initialState = window.APP_STATE || {};
-console.log('init', initialState);
 const history = createHistory();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');

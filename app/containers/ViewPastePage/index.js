@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import QRCode from 'qrcode.react';
 import { errorOccured } from 'containers/App/actions';
 import PropTypes from 'prop-types';
@@ -25,7 +26,7 @@ import {
 } from 'containers/App/selectors';
 import saga from './saga';
 import { getPasteFromApi, changeDecryptedRaw } from './actions';
-import { GET_PASTE, DECRYPT_PASS_MODAL, PGP_MODAL_DECRYPT, BASE_URL } from '../App/constants';
+import { GET_PASTE, GET_PASTE_AND_END, DECRYPT_PASS_MODAL, PGP_MODAL_DECRYPT, BASE_URL } from '../App/constants';
 
 
 export class ViewPastePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -36,7 +37,11 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
     this.openModal = this.openModal.bind(this);
     this.modalConfirm = this.modalConfirm.bind(this);
   }
-
+  componentWillMount() {
+    if (this.props.uri === '' && typeof window === 'undefined') {
+      this.props.getPaste(this.match.params.id, true);
+    }
+  }
   componentDidMount() {
     if (this.props.uri === '') {
       this.props.getPaste(this.match.params.id);
@@ -100,6 +105,9 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
     const viewRawUrl = `${BASE_URL}view/raw/${this.props.uri}`;
     return (
       <main>
+      <Helmet>
+        <title>{this.props.title}</title>
+      </Helmet>
         <Wrapper title={this.props.title}>
           <div className="row">
             <div className="col s12 m9 l10 left">
@@ -173,8 +181,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPaste(id) {
-      dispatch(getPasteFromApi(GET_PASTE, id));
+    getPaste(id, server) {
+      dispatch(getPasteFromApi(GET_PASTE, id, server));
     },
     setDecryptedRaw(raw) {
       dispatch(changeDecryptedRaw(raw));

@@ -9,7 +9,7 @@ import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 
-const sagaMiddleware = createSagaMiddleware();
+export const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
@@ -45,7 +45,7 @@ export default function configureStore(initialState = {}, history) {
   );
 
   // Extensions
-  sagaMiddleware.run(appSaga);
+  store.sagas = sagaMiddleware.run(appSaga);
   store.runSaga = sagaMiddleware.run;
 
   store.injectedReducers = {}; // Reducer registry

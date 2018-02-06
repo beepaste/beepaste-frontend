@@ -6,6 +6,12 @@ import { loadingFinished } from '../App/actions';
 import errorImage from '../../img/err.png';
 
 export class NotFound extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(history) {
+    super();
+    if (history.staticContext) {
+      history.staticContext.code = 404;
+    }
+  }
   componentDidMount() {
     this.props.dispatch(loadingFinished());
   }
