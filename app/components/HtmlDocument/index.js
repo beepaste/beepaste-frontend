@@ -15,13 +15,12 @@ export default function HtmlDocument({ head, css, appMarkup, state, assets, webp
         {/* Allow installing the app to the homescreen */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-title" content="react boilerplate" />
+        <meta name="apple-mobile-web-app-title" content="BeePaste" />
 
         {/* iOS home screen icons */}
-        <link rel="apple-touch-icon" sizes="120x120" href="/icon-120x120.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/icon-152x152.png" />
-        <link rel="apple-touch-icon" sizes="167x167" href="/icon-167x167.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icon-180x180.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png" />
 
         <link rel="icon" href="/favicon.ico" />
 

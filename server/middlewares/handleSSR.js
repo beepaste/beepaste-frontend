@@ -20,17 +20,16 @@ function printError(e) {
 module.exports = function handleSSR(req, res) {
   const options = {
     assets,
-    webpackDllNames: extractWebpackDllNamesFromPackage()
+    webpackDllNames: extractWebpackDllNamesFromPackage(),
   };
 
-  console.log('res',req.url);
-
   renderAppToStringAtLocation(req.url, options, (response) => {
-
     response.html.then((r) => {
-
-      res.status(200).send(r);
+      if (r === false) {
+        res.status(404).send();
+      } else {
+        res.status(200).send(r);
+      }
     });
-
   });
 };

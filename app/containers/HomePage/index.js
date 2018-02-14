@@ -1,4 +1,6 @@
 import React from 'react';
+import { END } from 'redux-saga';
+import { Helmet } from 'react-helmet';
 import { loadingFinished } from 'containers/App/actions';
 import {
   PGP_MODAL,
@@ -47,13 +49,17 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.openModal = this.openModal.bind(this);
   }
 
-
+  componentWillMount() {
+    if (typeof window === 'undefined') {
+      this.props.endSaga();
+    }
+  }
   componentDidMount() {
     this.props.appLoaded();
   }
   openModal(id) {
-    $(`#${id}`).modal({ dismissible: false });
-    $(`#${id}`).modal('open');
+    $(`#${id}`).modal({ dismissible: false }); // eslint-disable-line no-undef
+    $(`#${id}`).modal('open'); // eslint-disable-line no-undef
   }
 
   modalConfirm(ev, value) {
@@ -63,7 +69,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       CryptionService.EncryptWithOpenpgp(this.props.pasteraw, value).then((cryptedValue) => {
         this.props.onChangeEncryptedRaw(cryptedValue.data);
       }).catch(() => {
-        console.error('oh'); // todo error handling
+        console.error('oh'); // TODO error handling
       });
     }
     this.props.onSubmitForm(ev);
@@ -87,6 +93,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     const expireOptions = expires.map((exp) => <option key={exp.value} value={exp.value}>{exp.text}</option>);
     return (
       <main>
+        <Helmet>
+          <title>BeePaste - Yet another secure pastebin with encryption!</title>
+        </Helmet>
         <Wrapper title="Create a New Paste">
           <form onSubmit={this.checkForm} id="pasteForm">
             <div className="form-container">
@@ -99,7 +108,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
                 <div className="input-field col s12 m3">
                   <i className="fa fa-flag prefix"></i>
                   <input
-                    id="pasteTitle" type="text" className="" name="pasteTitle" value={this.props.pastetitle}
+                    id="pasteTitle"
+                    type="text"
+                    name="pasteTitle"
+                    value={this.props.pastetitle}
                     onChange={this.props.onChangeAnyThing}
                   />
                   <label className={this.props.pastetitle !== undefined && this.props.pastetitle !== '' ? 'active' : ''} htmlFor="pasteTitle">Title</label>
@@ -177,6 +189,7 @@ HomePage.propTypes = {
   onChangeAnyThing: PropTypes.func,
   onSubmitForm: PropTypes.func,
   appLoaded: PropTypes.func,
+  endSaga: PropTypes.func,
   form: PropTypes.object,
   author: PropTypes.string,
   pastetitle: PropTypes.string,
@@ -199,6 +212,9 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
+    endSaga: () => {
+      dispatch(END);
+    },
     onChangeRaw: (evt) => {
       dispatch({ type: CHANGE_RAW_CODE, name: evt });
     },

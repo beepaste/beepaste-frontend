@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { END } from 'redux-saga';
+import { Helmet } from 'react-helmet';
 import Wrapper from 'components/Wrapper';
 import Author from 'components/Author';
 import { AUTHORS_FIRST_ROW, AUTHORS_SECOND_ROW } from 'containers/App/constants';
@@ -10,6 +12,11 @@ import { loadingFinished } from '../App/actions';
 
 export class AboutusPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
+  componentWillMount() {
+    if (typeof window === 'undefined') {
+      this.props.endSaga();
+    }
+  }
   componentDidMount() {
     this.props.appLoaded();
   }
@@ -18,6 +25,9 @@ export class AboutusPage extends React.Component { // eslint-disable-line react/
     const secondRow = AUTHORS_SECOND_ROW.map((item) => <Author key={item.id} {...item} ></Author>);
     return (
       <main>
+        <Helmet>
+          <title>BeePaste - About BeePaste</title>
+        </Helmet>
         <Wrapper title="About BeePaste">
           <p><strong>BeePaste</strong> is a simple pastebin which is written using <strong>python</strong>, and <strong>pyramid framework</strong>. It's very first usage was just to share our code snippets with friends, but while we grew up, we saw new worlds, such as <code>Sys admins</code>, <code>Bloggers</code> and <code>Teachers</code>, whomever has some text to share with others! They also needed somewhere to share their pastes like <code>server logs</code>, <code>blog posts</code> and <code>homework</code> while they are chatting with others. So <strong>BeePaste</strong> is getting bigger and more useful by time, from a simple pastebin, it is becoming an advanced text sharing platform!</p>
           <p>Now let's see what are its features:</p>
@@ -52,6 +62,7 @@ export class AboutusPage extends React.Component { // eslint-disable-line react/
 
 AboutusPage.propTypes = {
   appLoaded: PropTypes.func,
+  endSaga: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -60,6 +71,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    endSaga: () => {
+      dispatch(END);
+    },
     appLoaded: () => {
       dispatch(loadingFinished());
     },

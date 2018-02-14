@@ -8,59 +8,39 @@
  */
 import React from 'react';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
-import { createMemoryHistory, match, RouterContext } from 'history';
-import { END } from 'redux-saga';
+import { createMemoryHistory } from 'history';
 import Helmet from 'react-helmet';
 import { ServerStyleSheet } from 'styled-components';
 
-// Global styles should be injected before any other scoped style, so make sure
-// this file is imported before any styled component.
-// import 'global-styles';
-
 import createStore from 'configureStore';
-import createHistory from 'history/createMemoryHistory';
 
 import HtmlDocument from 'components/HtmlDocument';
 import App from 'containers/App';
-import syncHistoryWithStore from 'setup/syncHistoryWithStore';
-import monitorSagas from 'utils/monitorSagas';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+import { StaticRouter } from 'react-router-dom';
 function renderAppToString(store, renderProps, styleSheet) {
-  console.log('router', renderProps);
   const app = (
     <Provider store={store}>
-      <ConnectedRouter {...renderProps}>
-      <App history={renderProps.history} />
-      </ConnectedRouter>
+      <StaticRouter location={renderProps.location} context={renderProps.context}>
+        <App history={renderProps.history} />
+      </StaticRouter>
     </Provider>
   );
-
   return renderToString(
     styleSheet ? styleSheet.collectStyles(app) : app
   );
 }
 
-async function renderHtmlDocument({ store, renderProps, sagasDone, assets, webpackDllNames }) {
-  // 1st render phase - triggers the sagas
-  renderAppToString(store, renderProps);
+async function renderHtmlDocument({ store, renderProps, assets, webpackDllNames }) {
+  const first = renderAppToString(store, renderProps);
 
-  // send signal to sagas that we're done
-  store.dispatch(END);
-
-  // wait for all tasks to finish
-  await sagasDone();
-
-  // capture the state after the first render
-  const state = store.getState().toJS();
-
-  // prepare style sheet to collect generated css
+  if (renderProps.context.code === 404 && renderProps.location !== '/notfound') {
+    return false;
+  }
+  await store.sagas.done;
   const styleSheet = new ServerStyleSheet();
-
-  // 2nd render phase - the sagas triggered in the first phase are resolved by now
   const appMarkup = renderAppToString(store, renderProps, styleSheet);
-
-  // capture the generated css
+  const state = store.getState().toJS();
   const css = styleSheet.getStyleElement();
 
   const doc = renderToStaticMarkup(
@@ -76,25 +56,14 @@ async function renderHtmlDocument({ store, renderProps, sagasDone, assets, webpa
   return `<!DOCTYPE html>\n${doc}`;
 }
 
-function is404(routes) {
-  return routes.some((r) => r.name === 'notfound');
-}
-
 function renderAppToStringAtLocation(url, { webpackDllNames = [], assets, lang }, callback) {
   const memHistory = createMemoryHistory({
-    initialEntries: [url]
+    initialEntries: [url],
   });
   const store = createStore({}, memHistory);
+  const content = renderHtmlDocument({ store, renderProps: { history: memHistory, location: url, context: {} }, assets, webpackDllNames });
 
-  // syncHistoryWithStore(memHistory, store);
-  //
-  // const routes = createHistory(store);
-
-  const sagasDone = monitorSagas(store);
-
-  const content = renderHtmlDocument({store,renderProps:{ history: memHistory, location: url } , sagasDone, assets, webpackDllNames});
-  console.log('content', content);
-  callback({ html: content, notFound : false});
+  callback({ html: content });
 }
 
 export {

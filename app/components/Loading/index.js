@@ -6,24 +6,23 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import dynamic from 'next/dynamic';
+import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { makeSelectLoading } from '../../containers/App/selectors';
-
-// import { pleaseWait } from 'please-wait';
 import logo from '../../img/icon.png';
-import { createStructuredSelector } from 'reselect';
 let pleaseWait;
 
 
 class Loading extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  componentDidMount(){
-    pleaseWait = require('please-wait');
+  componentWillMount() {
+    if (typeof window !== 'undefined') {
+      pleaseWait = require('please-wait').pleaseWait;  // eslint-disable-line global-require
+    }
   }
 
   render() {
-    if(typeof window !== 'undefined' && pleaseWait !== undefined){
+    if (pleaseWait !== undefined) {
       if (this.props.loading === true) {
         window.loading_screen = pleaseWait({
           logo,
@@ -31,7 +30,9 @@ class Loading extends React.Component { // eslint-disable-line react/prefer-stat
           loadingHtml: "<p class='loading-message'>The application is getting ready ...</p><div class='sk-spinner sk-spinner-pulse'></div>",
         });
       } else {
-        window.loading_screen.finish();
+        if (window.loading_screen !== undefined ){
+          window.loading_screen.finish();
+        }
       }
     }
     return (

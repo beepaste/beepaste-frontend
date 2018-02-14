@@ -11,7 +11,7 @@ import {
 // The initial state of the App
 const initialState = fromJS({
   error: false,
-  loading: true,
+  loading: false,
   footer: {
     year: 2017,
   },
