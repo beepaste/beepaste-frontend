@@ -105,9 +105,9 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
     const viewRawUrl = `${BASE_URL}view/raw/${this.props.uri}`;
     return (
       <main>
-      <Helmet>
-        <title>{this.props.title}</title>
-      </Helmet>
+        <Helmet>
+          <title>{this.props.title}</title>
+        </Helmet>
         <Wrapper title={this.props.title}>
           <div className="row">
             <div className="col s12 m9 l10 left">

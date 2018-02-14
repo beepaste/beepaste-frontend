@@ -22,9 +22,15 @@ function* getPaste(action) {
       }
     } else {
       yield put(errorOccured(response));
+      if (server) {
+        yield put(END);
+      }
     }
   } catch (err) {
     yield put(push('/notfound'));
+    if (server) {
+      yield put(END);
+    }
   }
 }
 

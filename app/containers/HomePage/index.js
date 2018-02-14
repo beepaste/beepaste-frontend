@@ -1,5 +1,6 @@
 import React from 'react';
 import { END } from 'redux-saga';
+import { Helmet } from 'react-helmet';
 import { loadingFinished } from 'containers/App/actions';
 import {
   PGP_MODAL,
@@ -92,6 +93,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     const expireOptions = expires.map((exp) => <option key={exp.value} value={exp.value}>{exp.text}</option>);
     return (
       <main>
+        <Helmet>
+          <title>BeePaste - Yet another secure pastebin with encryption!</title>
+        </Helmet>
         <Wrapper title="Create a New Paste">
           <form onSubmit={this.checkForm} id="pasteForm">
             <div className="form-container">

@@ -34,7 +34,7 @@ function renderAppToString(store, renderProps, styleSheet) {
 async function renderHtmlDocument({ store, renderProps, assets, webpackDllNames }) {
   const first = renderAppToString(store, renderProps);
 
-  if (renderProps.context.code === 404) {
+  if (renderProps.context.code === 404 && renderProps.location !== '/notfound') {
     return false;
   }
   await store.sagas.done;
