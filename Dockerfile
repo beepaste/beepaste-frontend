@@ -1,10 +1,8 @@
-FROM node:6
+FROM node:9
 
 COPY app beepaste/app
-# COPY docs beepaste/docs
 COPY internals beepaste/internals
 COPY package.json beepaste/package.json
-# COPY build beepaste/build
 COPY server beepaste/server
 COPY static beepaste/static
 COPY views beepaste/views
