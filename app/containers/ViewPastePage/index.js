@@ -103,10 +103,18 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
     const url = `${BASE_URL}/paste/view/${this.props.uri}`;
     const embedCode = `<iframe src="${BASE_URL}view/embed/${this.props.uri}" style="border:none;width:100%;min-height:300px;"></iframe>`;
     const viewRawUrl = `${BASE_URL}paste/raw/${this.props.uri}`;
+    const pasteDescription = `Paste by ${this.props.author}. View more information in link!`;
     return (
       <main>
         <Helmet>
           <title>{this.props.title}</title>
+          <meta name="twitter:card" content="summary" />
+          <meta property="og:type" content="website" />
+          <meta name="description" content={pasteDescription} />
+          <meta property="og:description" content={pasteDescription} />
+          <meta name="twitter:description" content={pasteDescription} />
+          <meta name="author" content="BeePaste" />
+          <meta name="twitter:creator" content="@beepasteio" />
         </Helmet>
         <Wrapper title={this.props.title}>
           <div className="row">

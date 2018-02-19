@@ -27,6 +27,14 @@ export class NotFound extends React.PureComponent { // eslint-disable-line react
       <main>
       <Helmet>
         <title>BeePaste - Not Found</title>
+        <meta name="description" content="Page not found! Try a different URL." />
+        <meta name="twitter:card" content="summary" />
+        <meta property="og:type" content="website" />
+        <meta name="description" content="Page not found! Try a different URL." />
+        <meta property="og:description" content="Page not found! Try a different URL." />
+        <meta name="twitter:description" content="Page not found! Try a different URL." />
+        <meta name="author" content="BeePaste" />
+        <meta name="twitter:creator" content="@beepasteio" />
       </Helmet>
         <Wrapper title="404: Page Not Found">
           <div className="col s6 m4">

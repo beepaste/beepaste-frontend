@@ -94,7 +94,15 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     return (
       <main>
         <Helmet>
-          <title>BeePaste - Yet another secure pastebin with encryption!</title>
+            <title>BeePaste - Yet another secure pastebin with encryption!</title>
+            <meta name="description" content="Yet another secure pastebin with encryption!" />
+            <meta name="twitter:card" content="summary" />
+            <meta property="og:type" content="website" />
+            <meta name="description" content="Yet another secure pastebin with encryption!" />
+            <meta property="og:description" content="Yet another secure pastebin with encryption!" />
+            <meta name="twitter:description" content="Yet another secure pastebin with encryption!" />
+            <meta name="author" content="BeePaste" />
+            <meta name="twitter:creator" content="@beepasteio" />
         </Helmet>
         <Wrapper title="Create a New Paste">
           <form onSubmit={this.checkForm} id="pasteForm">
