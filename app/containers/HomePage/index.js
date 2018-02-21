@@ -39,6 +39,7 @@ import {
   makeSelectPasteRaw,
   makeSelectPasteEncryption,
 } from './selector';
+import logo from '../../img/beepaste-sq.png';
 
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -95,6 +96,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       <main>
         <Helmet>
             <title>BeePaste - Yet another secure pastebin with encryption!</title>
+            <meta property="og:image" content={logo} />
+            <meta property="og:title" content="BeePaste" />
+            <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
             <meta name="description" content="Yet another secure pastebin with encryption!" />
             <meta name="twitter:card" content="summary" />
             <meta property="og:type" content="website" />

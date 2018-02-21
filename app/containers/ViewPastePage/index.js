@@ -27,6 +27,7 @@ import {
 import saga from './saga';
 import { getPasteFromApi, changeDecryptedRaw } from './actions';
 import { GET_PASTE, GET_PASTE_AND_END, DECRYPT_PASS_MODAL, PGP_MODAL_DECRYPT, BASE_URL } from '../App/constants';
+import logo from '../../img/beepaste-sq.png';
 
 
 export class ViewPastePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -108,6 +109,9 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
       <main>
         <Helmet>
           <title>{this.props.title}</title>
+          <meta property="og:image" content={logo} />
+          <meta property="og:title" content={this.props.title} />
+          <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
           <meta name="twitter:card" content="summary" />
           <meta property="og:type" content="website" />
           <meta name="description" content={pasteDescription} />
