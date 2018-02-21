@@ -97,6 +97,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         <Helmet>
             <title>BeePaste - Yet another secure pastebin with encryption!</title>
             <meta property="og:image" content={logo} />
+            <meta name="twitter:image" content={logo} />
             <meta property="og:title" content="BeePaste" />
             <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
             <meta name="description" content="Yet another secure pastebin with encryption!" />

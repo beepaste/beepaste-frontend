@@ -110,6 +110,7 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
         <Helmet>
           <title>{this.props.title}</title>
           <meta property="og:image" content={logo} />
+          <meta name="twitter:image" content={logo} />
           <meta property="og:title" content={this.props.title} />
           <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
           <meta name="twitter:card" content="summary" />
