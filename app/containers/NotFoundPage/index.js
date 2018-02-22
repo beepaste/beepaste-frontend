@@ -28,13 +28,13 @@ export class NotFound extends React.PureComponent { // eslint-disable-line react
       <main>
       <Helmet>
         <title>BeePaste - Not Found</title>
-        <meta property="og:image" content={logo} />
-        <meta name="twitter:image" content={logo} />
         <meta property="og:title" content="404 Not found - BeePaste" />
         <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
         <meta name="description" content="Page not found! Try a different URL." />
         <meta name="twitter:card" content="summary" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={logo} />
+        <meta name="twitter:image" content={logo} />
         <meta name="description" content="Page not found! Try a different URL." />
         <meta property="og:description" content="Page not found! Try a different URL." />
         <meta name="twitter:description" content="Page not found! Try a different URL." />
