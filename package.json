@@ -264,6 +264,7 @@
     "sjcl": "^1.0.7",
     "spinkit": "^1.2.5",
     "styled-components": "2.0.0",
+    "typed.js": "^2.0.6",
     "warning": "3.0.0",
     "whatwg-fetch": "2.0.3"
   },

@@ -5,7 +5,10 @@ import {
   CHANGE_DECRYPTED_RAW,
   GET_PASTE_SUCCESS,
   ERROR,
-  CLEAR_ERROR, HIDE_LOADING, POST_NEW_PASTE,
+  CLEAR_ERROR,
+  HIDE_LOADING,
+  POST_NEW_PASTE,
+  GET_API_KEY
 } from './constants';
 
 // The initial state of the App
@@ -59,7 +62,7 @@ function appReducer(state = initialState, action) {
       return setPaste(state, action.response).set('loading', false);
     case CHANGE_DECRYPTED_RAW:
       return state.setIn(['paste', 'raw'], action.raw);
-    case POST_NEW_PASTE:
+    case GET_API_KEY:
       return state.set('loading', true);
     default:
       return state;
