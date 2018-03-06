@@ -100,9 +100,9 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
   }
 
   render() {
-    const url = `${BASE_URL}view/${this.props.uri}`;
+    const url = `${BASE_URL}/paste/view/${this.props.uri}`;
     const embedCode = `<iframe src="${BASE_URL}view/embed/${this.props.uri}" style="border:none;width:100%;min-height:300px;"></iframe>`;
-    const viewRawUrl = `${BASE_URL}view/raw/${this.props.uri}`;
+    const viewRawUrl = `${BASE_URL}paste/raw/${this.props.uri}`;
     return (
       <main>
         <Helmet>
