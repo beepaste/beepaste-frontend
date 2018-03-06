@@ -26,7 +26,9 @@ module.exports = function handleSSR(req, res) {
   renderAppToStringAtLocation(req.url, options, (response) => {
     response.html.then((r) => {
       if (r === false) {
-        res.status(404).send();
+        res.redirect('/notfound');
+      } else if (req.url === '/notfound') {
+        res.status(404).send(r);
       } else {
         res.status(200).send(r);
       }
