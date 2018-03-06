@@ -39,6 +39,7 @@ import {
   makeSelectPasteRaw,
   makeSelectPasteEncryption,
 } from './selector';
+import logo from '../../img/beepaste-sq.png';
 
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -94,7 +95,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     return (
       <main>
         <Helmet>
-          <title>BeePaste - Yet another secure pastebin with encryption!</title>
+            <title>BeePaste - Yet another secure pastebin with encryption!</title>
+            <meta property="og:title" content="BeePaste" />
+            <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
+            <meta name="description" content="Yet another secure pastebin with encryption!" />
+            <meta name="twitter:card" content="summary" />
+            <meta property="og:type" content="website" />
+            <meta property="og:image" content={logo} />
+            <meta name="twitter:image" content={logo} />
+            <meta name="description" content="Yet another secure pastebin with encryption!" />
+            <meta property="og:description" content="Yet another secure pastebin with encryption!" />
+            <meta name="twitter:description" content="Yet another secure pastebin with encryption!" />
+            <meta name="author" content="BeePaste" />
+            <meta name="twitter:creator" content="@beepasteio" />
         </Helmet>
         <Wrapper title="Create a New Paste">
           <form onSubmit={this.checkForm} id="pasteForm">

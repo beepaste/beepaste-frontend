@@ -21,6 +21,13 @@ export default class App extends React.Component {
         >
           <title>BeePaste - Yet another secure pastebin with encryption!</title>
           <meta name="description" content="Yet another secure pastebin with encryption!" />
+          <meta name="twitter:card" content="summary" />
+          <meta property="og:type" content="website" />
+          <meta name="description" content="Yet another secure pastebin with encryption!" />
+          <meta property="og:description" content="Yet another secure pastebin with encryption!" />
+          <meta name="twitter:description" content="Yet another secure pastebin with encryption!" />
+          <meta name="author" content="BeePaste" />
+          <meta name="twitter:creator" content="@beepasteio" />
         </Helmet>
         <Header />
         <Toast />
