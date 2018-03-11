@@ -13,7 +13,6 @@ const enableDestroy = require('server-destroy');
 exports.port = port;
 
 const debug = console.log.bind(console, chalk.cyan('[ssr service]'));
-console.log(port,'hereeeeeeeeeeee');
 
 function ensureAllGeneratedFilesExist() {
   const modules = [
