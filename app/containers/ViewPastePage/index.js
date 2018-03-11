@@ -37,6 +37,7 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
     this.match = match;
     this.openModal = this.openModal.bind(this);
     this.modalConfirm = this.modalConfirm.bind(this);
+    this.baseUrlWithoutSlash = BASE_URL.slice(0, -1);
   }
   componentWillMount() {
     if (this.props.uri === '' && typeof window === 'undefined') {
@@ -101,7 +102,7 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
   }
 
   render() {
-    const url = `${BASE_URL}/paste/view/${this.props.uri}`;
+    const url = `${BASE_URL}paste/view/${this.props.uri}`;
     const embedCode = `<iframe src="${BASE_URL}view/embed/${this.props.uri}" style="border:none;width:100%;min-height:300px;"></iframe>`;
     const viewRawUrl = `${BASE_URL}paste/raw/${this.props.uri}`;
     const pasteDescription = `Paste by ${this.props.author}. View more information in link!`;
@@ -113,8 +114,8 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
           <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
           <meta name="twitter:card" content="summary" />
           <meta property="og:type" content="website" />
-          <meta property="og:image" content={logo} />
-          <meta name="twitter:image" content={logo} />
+          <meta property="og:image" content={this.baseUrlWithoutSlash + logo} />
+          <meta name="twitter:image" content={this.baseUrlWithoutSlash + logo} />
           <meta name="description" content={pasteDescription} />
           <meta property="og:description" content={pasteDescription} />
           <meta name="twitter:description" content={pasteDescription} />

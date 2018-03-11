@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { loadingFinished } from '../App/actions';
 import errorImage from '../../img/err.png';
 import logo from '../../img/beepaste-sq.png';
+import { BASE_URL } from 'containers/App/constants';
 
 export class NotFound extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(history) {
@@ -14,6 +15,7 @@ export class NotFound extends React.PureComponent { // eslint-disable-line react
     if (history.staticContext) {
       history.staticContext.code = 404;
     }
+    this.baseUrlWithoutSlash = BASE_URL.slice(0, -1);
   }
   componentWillMount() {
     if (typeof window === 'undefined') {
@@ -26,21 +28,21 @@ export class NotFound extends React.PureComponent { // eslint-disable-line react
   render() {
     return (
       <main>
-      <Helmet>
-        <title>BeePaste - Not Found</title>
-        <meta property="og:title" content="404 Not found - BeePaste" />
-        <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
-        <meta name="description" content="Page not found! Try a different URL." />
-        <meta name="twitter:card" content="summary" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content={logo} />
-        <meta name="twitter:image" content={logo} />
-        <meta name="description" content="Page not found! Try a different URL." />
-        <meta property="og:description" content="Page not found! Try a different URL." />
-        <meta name="twitter:description" content="Page not found! Try a different URL." />
-        <meta name="author" content="BeePaste" />
-        <meta name="twitter:creator" content="@beepasteio" />
-      </Helmet>
+        <Helmet>
+          <title>BeePaste - Not Found</title>
+          <meta property="og:title" content="404 Not found - BeePaste" />
+          <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
+          <meta name="description" content="Page not found! Try a different URL." />
+          <meta name="twitter:card" content="summary" />
+          <meta property="og:type" content="website" />
+          <meta property="og:image" content={this.baseUrlWithoutSlash + logo} />
+          <meta name="twitter:image" content={this.baseUrlWithoutSlash + logo} />
+          <meta name="description" content="Page not found! Try a different URL." />
+          <meta property="og:description" content="Page not found! Try a different URL." />
+          <meta name="twitter:description" content="Page not found! Try a different URL." />
+          <meta name="author" content="BeePaste" />
+          <meta name="twitter:creator" content="@beepasteio" />
+        </Helmet>
         <Wrapper title="404: Page Not Found">
           <div className="col s6 m4">
             <img className="responsive-img" src={errorImage} alt="not found image" />

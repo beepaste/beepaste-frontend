@@ -13,6 +13,7 @@ import {
   CHANGE_ENCRYPTION,
   CHANGE_ENCRYPTED_PASTE_RAW,
   POST_NEW_PASTE,
+  BASE_URL,
   languages,
   expires,
 } from 'containers/App/constants';
@@ -48,6 +49,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.checkForm = this.checkForm.bind(this);
     this.modalConfirm = this.modalConfirm.bind(this);
     this.openModal = this.openModal.bind(this);
+    this.baseUrlWithoutSlash = BASE_URL.slice(0, -1);
   }
 
   componentWillMount() {
@@ -95,19 +97,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     return (
       <main>
         <Helmet>
-            <title>BeePaste - Yet another secure pastebin with encryption!</title>
-            <meta property="og:title" content="BeePaste" />
-            <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
-            <meta name="description" content="Yet another secure pastebin with encryption!" />
-            <meta name="twitter:card" content="summary" />
-            <meta property="og:type" content="website" />
-            <meta property="og:image" content={logo} />
-            <meta name="twitter:image" content={logo} />
-            <meta name="description" content="Yet another secure pastebin with encryption!" />
-            <meta property="og:description" content="Yet another secure pastebin with encryption!" />
-            <meta name="twitter:description" content="Yet another secure pastebin with encryption!" />
-            <meta name="author" content="BeePaste" />
-            <meta name="twitter:creator" content="@beepasteio" />
+          <title>BeePaste - Yet another secure pastebin with encryption!</title>
+          <meta property="og:title" content="BeePaste" />
+          <meta property="og:site_name" content="BeePaste - A Safe Pastebin!" />
+          <meta name="description" content="Yet another secure pastebin with encryption!" />
+          <meta name="twitter:card" content="summary" />
+          <meta property="og:type" content="website" />
+          <meta property="og:image" content={this.baseUrlWithoutSlash + logo} />
+          <meta name="twitter:image" content={this.baseUrlWithoutSlash + logo} />
+          <meta name="description" content="Yet another secure pastebin with encryption!" />
+          <meta property="og:description" content="Yet another secure pastebin with encryption!" />
+          <meta name="twitter:description" content="Yet another secure pastebin with encryption!" />
+          <meta name="author" content="BeePaste" />
+          <meta name="twitter:creator" content="@beepasteio" />
         </Helmet>
         <Wrapper title="Create a New Paste">
           <form onSubmit={this.checkForm} id="pasteForm">
