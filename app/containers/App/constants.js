@@ -23,7 +23,7 @@ export const ERROR = 'ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const SHOW_LOADING = 'SHOW_LOADING';
 export const HIDE_LOADING = 'HIDE_LOADING';
-
+export const HEAP_APP_ID = '3140476204';
 export const MESSAGES = {
   DEFAULT_API_ERROR: 'Something\'s not right',
 };

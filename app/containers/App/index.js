@@ -9,9 +9,13 @@ import AboutusPage from 'containers/AboutusPage';
 import NotFoundPage from 'containers/NotFoundPage';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
-
+import injectScript from 'utils/injectHeap';
+import { HEAP_APP_ID } from './constants';
 
 export default class App extends React.Component {
+  componentWillMount() {
+    injectScript(HEAP_APP_ID);
+  }
 
   render() {
     return (
