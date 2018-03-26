@@ -29,23 +29,18 @@ export class AboutusPage extends React.Component { // eslint-disable-line react/
           <title>BeePaste - About BeePaste</title>
         </Helmet>
         <Wrapper title="About BeePaste">
-          <p><strong>BeePaste</strong> is a simple pastebin which is written using <strong>python</strong>, and <strong>pyramid framework</strong>. It's very first usage was just to share our code snippets with friends, but while we grew up, we saw new worlds, such as <code>Sys admins</code>, <code>Bloggers</code> and <code>Teachers</code>, whomever has some text to share with others! They also needed somewhere to share their pastes like <code>server logs</code>, <code>blog posts</code> and <code>homework</code> while they are chatting with others. So <strong>BeePaste</strong> is getting bigger and more useful by time, from a simple pastebin, it is becoming an advanced text sharing platform!</p>
-          <p>Now let's see what are its features:</p>
-          <blockquote>
-            Paste safely with <strong>client-side</strong> paste encryption! (optional)
-          </blockquote>
-          <blockquote>
-            If you are a sysadmin or just want to send server logs to someone, you can paste it within the shell! just use <code>cat LOGFILE | nc beepaste.ir 1111</code>! for more information, please visit <a href="https://github.com/beepaste/pastecat">PasteCat Repository</a>
-          </blockquote>
-          <blockquote>
-            Also there is an <strong>rest-ful API</strong> which you can build your apps based on!
-          </blockquote>
-          <blockquote>
-            It is using <strong>ACE EDIT</strong> as editor and its powerful features like <strong>syntax highlighting</strong>
-          </blockquote>
-          <blockquote>
-            And more upcoming features are on the way to the server :))
-          </blockquote>
+        <h5 id="whatisbeeit">What is BeeIT?</h5>
+          <p>The BeeIT services first goal is to provide <a href="https://www.fsf.org/">free</a> tools for developers society and form a social network among them.</p>
+        <h5 id="whatisbeepaste">What is BeePaste?</h5>
+          <p>BeePaste is the first service available from BeeIT services aimed to provide a secure platform to store text data (also know as Pastebin).</p>
+        <h5 id="whoareourusers">Who are our users?</h5>
+          <p>As mentioned above, our main users are developers and corporations in IT industry whom want to have third-parties to handle some of their tasks; for example they can periodically backup their server configurations on BeePaste servers securely then access their configurations anywhere anytime on the internet.</p>
+        <h5 id="whatbeepastesuggests">What BeePaste suggests?</h5>
+          <p>BeePaste's most outstanding feature is our emphasis on protecting our users' and their data privacy, secrecy, and security! For instance they can encrypt their data on their end using one of 2 provided methods (PGP or AES) before sending them to our servers. Furthermore, this encrypted paste can only be decrypted by the people having the corresponding secret-key (who are usually authorized by the user) and we don't have access to the plaintext!</p>
+        <h5 id="whatdoweuse">What do we use?</h5>
+          <p>On server-side, we are using Python and <a href="http://sanic.readthedocs.io/en/latest/index.html">Sanic</a>, while we are using JavaScript and <a href="https://reactjs.org/">React</a> for front-end (and some <a href="https://nodejs.org/en/">Node.js</a>!).</p>
+          <p>As our services are aimed to promote free software, our source-codes are available on gitlab publicly under <a href="https://gitlab.com/beeit">BeeIT Group</a>! We have chosen gitlab because it not only simple to use and free, but also provides an integrated set of development tools such as CI/CD, task management and team management services.</p>
+          <p>Moreover, one of our concerns is scalability and availability. To solve this issue, we use efficient tools like <a href="https://www.docker.com/">Docker</a> (and we are migrating to <a href="http://rancher.com/">Rancher</a> for orchestration) for container management, <a href="https://www.nginx.com/">NGiNX</a> as web-server and load-balancer.</p>
         </Wrapper>
         <div className="container">
           <div className="row">
