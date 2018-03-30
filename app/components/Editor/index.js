@@ -19,12 +19,14 @@ class Editor extends React.Component { // eslint-disable-line react/prefer-state
     this.props = props;
   }
   componentWillMount() {
-    AceEditor = require('react-ace').default; // eslint-disable-line global-require
-    xcode = require('brace/theme/xcode'); // eslint-disable-line global-require
-    languages.forEach((lang) => {
-      require(`brace/mode/${lang.value}`); // eslint-disable-line global-require
-      require(`brace/snippets/${lang.value}`); // eslint-disable-line global-require
-    });
+    if (typeof window !== 'undefined') {
+      AceEditor = require('react-ace').default; // eslint-disable-line global-require
+      xcode = require('brace/theme/xcode'); // eslint-disable-line global-require
+      languages.forEach((lang) => {
+        require(`brace/mode/${lang.value}`); // eslint-disable-line global-require
+        require(`brace/snippets/${lang.value}`); // eslint-disable-line global-require
+      });
+    }
   }
   render() {
     const props = this.props;
