@@ -1,5 +1,5 @@
-export const BASE_URL = 'https://beta.beepaste.io/';
-export const BACKEND_ADDRESS = 'https://beta.beepaste.io/';
+export const BASE_URL = 'https://beepaste.io/';
+export const BACKEND_ADDRESS = 'https://beepaste.io/';
 export const AUTH_API = 'api/v1/auth';
 export const PASTE_API = 'api/v1/paste';
 export const POST_NEW_PASTE = 'POST_NEW_PASTE';
