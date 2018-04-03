@@ -126,9 +126,9 @@ export class ViewPastePage extends React.Component { // eslint-disable-line reac
           <div className="row">
             <div className="col s12 m9 l10 left">
               <div className="details">By {this.props.author}</div>
-              <div className="details">URL <Link
-                to={url}
-              >{url}</Link></div>
+              <div className="details">URL <a
+                href={url}
+              >{url}</a></div>
               <div className="details">short URL <a href={this.props.shorturl}>{this.props.shorturl}</a></div>
               <div className="details">Embed Code:
                 <input data-lang-showcode="Show Code" id="embed_field" type="text" value={embedCode} />
