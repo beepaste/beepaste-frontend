@@ -1,13 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { END } from 'redux-saga';
 import { Helmet } from 'react-helmet';
-import Wrapper from 'components/Wrapper';
+import Terminal from 'components/Terminal';
 import { connect } from 'react-redux';
-import { loadingFinished } from '../App/actions';
-import errorImage from '../../img/err.png';
-import logo from '../../img/beepaste-sq.png';
 import { BASE_URL } from 'containers/App/constants';
+import { loadingFinished } from '../App/actions';
+import logo from '../../img/beepaste-sq.png';
 
 export class NotFound extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(history) {
@@ -27,7 +25,7 @@ export class NotFound extends React.PureComponent { // eslint-disable-line react
   }
   render() {
     return (
-      <main>
+      <div>
         <Helmet>
           <title>BeePaste - Not Found</title>
           <meta property="og:title" content="404 Not found - BeePaste" />
@@ -43,18 +41,36 @@ export class NotFound extends React.PureComponent { // eslint-disable-line react
           <meta name="author" content="BeePaste" />
           <meta name="twitter:creator" content="@beepasteio" />
         </Helmet>
-        <Wrapper title="404: Page Not Found">
-          <div className="col s6 m4">
-            <img className="responsive-img" src={errorImage} alt="not found image" />
-          </div>
-          <div className="col s6 m8 valign-wrapper">
-            <h4>Check the url or if there is a bug, report it to <Link to="https://github.com/beepaste">BeePaste</Link></h4>
-          </div>
-          <div className="col s12 m8">
-            <span><Link to="/"><i className="fa fa-arrow-circle-left" aria-hidden="true"></i> return to the home page</Link></span>
-          </div>
-        </Wrapper>
-      </main>
+        <Terminal style={{ width: 750, height: 600 }}>
+          <section className="terminal">
+            <pre className="cow">
+              {`
+               _____________________
+               < Oppps! Not Found :( >
+                ---------------------
+                         \\
+                          \\
+               
+               
+                     ^^      .-=-=-=-.  ^^
+                 ^^        (\`-=-=-=-=-\`)         ^^
+                         (\`-=-=-=-=-=-=-\`)  ^^         ^^
+                   ^^   (\`-=-=-=-=-=-=-=-\`)   ^^                            ^^
+                       ( \`-=-=-=-(@)-=-=-\` )      ^^
+                       (\`-=-=-=-=-=-=-=-=-\`)  ^^
+                       (\`-=-=-=-=-=-=-=-=-\`)              ^^
+                       (\`-=-=-=-=-=-=-=-=-\`)                      ^^
+                       (\`-=-=-=-=-=-=-=-=-\`)  ^^
+                        (\`-=-=-=-=-=-=-=-\`)          ^^
+                         (\`-=-=-=-=-=-=-\`)  ^^                 ^^
+                     jgs   (\`-=-=-=-=-\`)
+                            \`-=-=-=-=-\`
+               
+              `}
+            </pre>
+          </section>
+        </Terminal>
+      </div>
     );
   }
 }

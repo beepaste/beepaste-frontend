@@ -14,6 +14,7 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectLoading } from 'containers/App/selectors';
 import { makeSelectForm } from 'containers/HomePage/selector';
 import reducer from 'containers/HomePage/reducer';
+import Terminal from 'components/Terminal';
 import logo from '../../img/icon.png';
 let pleaseWait;
 
@@ -95,18 +96,14 @@ class Loading extends React.Component { // eslint-disable-line react/prefer-stat
   render() {
     if (pleaseWait !== undefined) {
       if (this.props.loading === true) {
-        return (<div className="terminal-window-wrapper"><div className="terminal-window">
-          <header>
-            <div className="button green"></div>
-            <div className="button yellow"></div>
-            <div className="button red"></div>
-          </header>
-          <section className="terminal" ref={(el) => { this.terminal = el; }}>
-            <div className="history" ref={(el) => { this.history = el; }}></div>
+        return (
+          <Terminal>
+            <section className="terminal" ref={(el) => { this.terminal = el; }}>
+              <div className="history" ref={(el) => { this.history = el; }}></div>
             hi@beepaste.io ~$&nbsp;<span className="prompt" ref={(el) => { this.prompt = el; }}></span>
-            <span className="typed-cursor"></span>
-          </section>
-        </div></div>);
+              <span className="typed-cursor"></span>
+            </section>
+          </Terminal>);
       }
     }
     return (
