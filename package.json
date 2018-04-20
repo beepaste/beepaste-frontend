@@ -1,6 +1,6 @@
 {
   "name": "BeePaste-FronEnd",
-  "version": "0.0.1",
+  "version": "1.0-beta",
   "description": "Yet another secure pastebin with encryption!",
   "repository": {
     "type": "git",
